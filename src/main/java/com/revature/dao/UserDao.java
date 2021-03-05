@@ -7,13 +7,13 @@ import com.revature.models.UserType;
 
 public interface UserDao {
 	
-	User getUser();
+	boolean addUser(User u);
 	
-	User getUserById();
+	User getUserById(int id);
 	
-	User getUserByUserName();
+	User getUserByUserName(String username);
 	
-	User getUserByEmail();
+	User getUserByEmail(String email);
 	
 	User getAllUsersByType(UserType type);
 	
