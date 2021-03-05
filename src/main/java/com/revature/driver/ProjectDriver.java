@@ -13,7 +13,9 @@ public class ProjectDriver {
 		
 		UserDao uDao = new UserDaoConcrete();
 		
-		uDao.addUser(u);
+		//uDao.addUser(u);
+		
+		System.out.println(uDao.getUserById(2).toString());
 	}
 	
 }

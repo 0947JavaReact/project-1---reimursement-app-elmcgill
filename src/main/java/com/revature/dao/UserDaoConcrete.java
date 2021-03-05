@@ -2,6 +2,8 @@ package com.revature.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
@@ -42,7 +44,36 @@ public class UserDaoConcrete implements UserDao{
 	}
 	
 	public User getUserById(int id) {
-		// TODO Auto-generated method stub
+		User u = new User();
+
+		String sql = "SELECT * FROM users WHERE user_id = ?;";
+
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, id);
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				u.setUserId(id);
+				u.setUsername(rs.getString(2));
+				u.setPassword(rs.getString(3));
+				u.setFirstName(rs.getString(4));
+				u.setLastName(rs.getString(5));
+				u.setEmail(rs.getString(6));
+				if(rs.getInt(7) == 1) {
+					u.setRole(UserType.EMPLOYEE);
+				} else {
+					u.setRole(UserType.MANAGER);
+				}
+			}
+			
+			return u;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 
