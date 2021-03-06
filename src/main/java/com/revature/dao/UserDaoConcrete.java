@@ -217,6 +217,7 @@ public class UserDaoConcrete implements UserDao{
 		ArrayList<User> uList = new ArrayList<User>();
 		try {
 			String sql = "{? = call get_all_users_with_types()}";
+			con.setAutoCommit(false);
 			CallableStatement cs = con.prepareCall(sql);
 			cs.registerOutParameter(1, Types.OTHER);
 			cs.execute();
@@ -230,10 +231,12 @@ public class UserDaoConcrete implements UserDao{
 				u.setFirstName(rs.getString(4));
 				u.setLastName(rs.getString(5));
 				u.setEmail(rs.getString(6));
-				if(rs.getInt(7) == 0) {
+				if(rs.getString(7).equals("EMPLOYEE")) {
 					u.setRole(UserType.EMPLOYEE);
+					u.setUserRoleAsString("EMPLOYEE");
 				} else {
 					u.setRole(UserType.MANAGER);
+					u.setUserRoleAsString("MANAGER");
 				}
 				uList.add(u);
 			}

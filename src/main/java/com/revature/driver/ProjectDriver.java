@@ -9,7 +9,7 @@ public class ProjectDriver {
 
 	public static void main(String[] args) {
 		
-		User u = new User(4, "jdbc1", "password", "jdbctest", "user", "testemail@gmail.com", UserType.EMPLOYEE);
+		User u = new User(4, "jdbc1", "password", "jdbctest", "user", "testemail@gmail.com", UserType.EMPLOYEE, "");
 		
 		UserDao uDao = new UserDaoConcrete();
 		
