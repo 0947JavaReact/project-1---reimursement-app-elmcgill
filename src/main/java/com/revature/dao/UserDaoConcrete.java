@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 
@@ -29,8 +30,7 @@ public class UserDaoConcrete implements UserDao{
 			cs.setString(5, u.getFirstName());
 			cs.setString(6, u.getLastName());
 			cs.setString(7, u.getEmail());
-			System.out.println(u.getRole().ordinal());
-			cs.setInt(8, (int) u.getRole().ordinal()+1);
+			cs.setInt(8, (int) u.getRole().ordinal());
 			
 			cs.execute();
 			
@@ -61,7 +61,7 @@ public class UserDaoConcrete implements UserDao{
 				u.setFirstName(rs.getString(4));
 				u.setLastName(rs.getString(5));
 				u.setEmail(rs.getString(6));
-				if(rs.getInt(7) == 1) {
+				if(rs.getInt(7) == 0) {
 					u.setRole(UserType.EMPLOYEE);
 				} else {
 					u.setRole(UserType.MANAGER);
@@ -78,38 +78,214 @@ public class UserDaoConcrete implements UserDao{
 	}
 
 	public User getUserByUserName(String username) {
-		// TODO Auto-generated method stub
+		User u = new User();
+
+		String sql = "SELECT * FROM users WHERE username = ?;";
+
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, username);
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				u.setUserId(rs.getInt(1));
+				u.setUsername(rs.getString(2));
+				u.setPassword(rs.getString(3));
+				u.setFirstName(rs.getString(4));
+				u.setLastName(rs.getString(5));
+				u.setEmail(rs.getString(6));
+				if(rs.getInt(7) == 0) {
+					u.setRole(UserType.EMPLOYEE);
+				} else {
+					u.setRole(UserType.MANAGER);
+				}
+			}
+			
+			return u;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 
 	public User getUserByEmail(String email) {
-		// TODO Auto-generated method stub
+		User u = new User();
+
+		String sql = "SELECT * FROM users WHERE email = ?;";
+
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, email);
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				u.setUserId(rs.getInt(1));
+				u.setUsername(rs.getString(2));
+				u.setPassword(rs.getString(3));
+				u.setFirstName(rs.getString(4));
+				u.setLastName(rs.getString(5));
+				u.setEmail(rs.getString(6));
+				if(rs.getInt(7) == 0) {
+					u.setRole(UserType.EMPLOYEE);
+				} else {
+					u.setRole(UserType.MANAGER);
+				}
+			}
+			
+			return u;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 
-	public User getAllUsersByType(UserType type) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<User> getAllUsersByType(UserType type) {
+		
+		ArrayList<User> uList = new ArrayList<User>();
+		
+		String sql = "SELECT * FROM users WHERE type=?;";
+		
+		try {
+			
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, type.ordinal());
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				User u = new User();
+				u.setUserId(rs.getInt(1));
+				u.setUsername(rs.getString(2));
+				u.setPassword(rs.getString(3));
+				u.setFirstName(rs.getString(4));
+				u.setLastName(rs.getString(5));
+				u.setEmail(rs.getString(6));
+				if(rs.getInt(7) == 0) {
+					u.setRole(UserType.EMPLOYEE);
+				} else {
+					u.setRole(UserType.MANAGER);
+				}
+				uList.add(u);
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return uList;
 	}
 
 	public ArrayList<User> getAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<User> uList = new ArrayList<User>();
+		
+		String sql = "SELECT * FROM users;";
+		
+		try {
+			Statement s = con.createStatement();
+			ResultSet rs = s.executeQuery(sql);
+			
+			while(rs.next()) {
+				User u = new User();
+				u.setUserId(rs.getInt(1));
+				u.setUsername(rs.getString(2));
+				u.setPassword(rs.getString(3));
+				u.setFirstName(rs.getString(4));
+				u.setLastName(rs.getString(5));
+				u.setEmail(rs.getString(6));
+				if(rs.getInt(7) == 0) {
+					u.setRole(UserType.EMPLOYEE);
+				} else {
+					u.setRole(UserType.MANAGER);
+				}
+				uList.add(u);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return uList;
 	}
 
 	public ArrayList<User> getAllUserWithTypeInfo() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<User> uList = new ArrayList<User>();
+		try {
+			String sql = "{? = call get_all_users_with_types()}";
+			CallableStatement cs = con.prepareCall(sql);
+			cs.registerOutParameter(1, Types.OTHER);
+			cs.execute();
+			ResultSet rs = (ResultSet)cs.getObject(1);
+			
+			while(rs.next()) {
+				User u = new User();
+				u.setUserId(rs.getInt(1));
+				u.setUsername(rs.getString(2));
+				u.setPassword(rs.getString(3));
+				u.setFirstName(rs.getString(4));
+				u.setLastName(rs.getString(5));
+				u.setEmail(rs.getString(6));
+				if(rs.getInt(7) == 0) {
+					u.setRole(UserType.EMPLOYEE);
+				} else {
+					u.setRole(UserType.MANAGER);
+				}
+				uList.add(u);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return uList;
 	}
 
 	public User updateUser(User u, int userId) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql =
+				"UPDATE users SET "+
+				"username = ?, password = ?, user_firstname = ?, user_lastname = ?, email = ?, type = ? "+
+				"WHERE user_id = ?;";
+		
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, u.getUsername());
+			ps.setString(2, u.getPassword());
+			ps.setString(3, u.getFirstName());
+			ps.setString(4, u.getLastName());
+			ps.setString(5, u.getEmail());
+			ps.setInt(6, u.getRole().ordinal());
+			ps.setInt(7,  userId);
+			
+			ps.execute();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+		
+		return u;
 	}
 
 	public boolean deleteUser(int userId) {
-		// TODO Auto-generated method stub
-		return false;
+		String sql = "DELETE from users WHERE user_id = ?;";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, userId);
+			ps.execute();
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
 	}
 
 }

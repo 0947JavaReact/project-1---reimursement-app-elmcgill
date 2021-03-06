@@ -15,7 +15,7 @@ public interface UserDao {
 	
 	User getUserByEmail(String email);
 	
-	User getAllUsersByType(UserType type);
+	ArrayList<User> getAllUsersByType(UserType type);
 	
 	ArrayList<User> getAllUsers();
 	
