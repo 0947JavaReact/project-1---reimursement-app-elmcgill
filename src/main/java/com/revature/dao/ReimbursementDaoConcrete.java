@@ -2,6 +2,7 @@ package com.revature.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,31 +24,31 @@ public class ReimbursementDaoConcrete implements ReimbursementDao {
 	public boolean addReimbursement(Reimbursement r) {
 
 		try {
-			String sql = "{? = call create_reimbursement(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
-			CallableStatement cs = con.prepareCall(sql);
-			cs.registerOutParameter(1, Types.BOOLEAN);
-			cs.setInt(2, r.getReId());
-			cs.setDouble(3, r.getReAmount());
-			cs.setDate(4, r.getReSubmitted());
-			cs.setDate(5, r.getReResolved());
-			cs.setString(6, r.getReDesc());
-			cs.setInt(7, r.getReAuthor());
+			String sql = "INSERT INTO reimbursement VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			PreparedStatement cs = con.prepareStatement(sql);
+			cs.setInt(1, r.getReId());
+			cs.setDouble(2, r.getReAmount());
+			cs.setDate(3, r.getReSubmitted());
+			cs.setDate(4, r.getReResolved());
+			cs.setString(5, r.getReDesc());
+			cs.setInt(6, r.getReAuthor());
+			
 			if(r.getReResolver() == -1) {
-				cs.setNull(4, Types.INTEGER);
+				cs.setNull(7, Types.INTEGER);
 			}else {
-				cs.setInt(8, r.getReResolver());
+				cs.setInt(7, r.getReResolver());
 			}
-			cs.setInt(9, r.getReStatus().ordinal());
-			cs.setInt(10, r.getReType().ordinal());
+			cs.setInt(8, r.getReStatus().ordinal());
+			cs.setInt(9, r.getReType().ordinal());
 
 			cs.execute();
-
-			return cs.getBoolean(1);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
+		
+		return true;
 	}
 
 	public Reimbursement getReimbursementById(int id) {
@@ -69,7 +70,11 @@ public class ReimbursementDaoConcrete implements ReimbursementDao {
 				r.setReResolved(rs.getDate(4));
 				r.setReDesc(rs.getString(5));
 				r.setReAuthor(rs.getInt(6));
-				r.setReResolver(rs.getInt(7));
+				if(rs.getInt(7) == 0) {
+					r.setReResolver(-1);
+				}else {
+					r.setReResolver(rs.getInt(7));	
+				}
 				switch (rs.getInt(8)) {
 				case 0:
 					r.setReStatus(ReimbursementStatus.PENDING);
