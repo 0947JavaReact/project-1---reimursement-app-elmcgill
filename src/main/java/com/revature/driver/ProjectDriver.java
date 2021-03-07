@@ -2,6 +2,7 @@ package com.revature.driver;
 
 import com.revature.dao.UserDao;
 import com.revature.dao.UserDaoConcrete;
+import com.revature.models.Reimbursement;
 import com.revature.models.User;
 import com.revature.models.UserType;
 
@@ -16,6 +17,8 @@ public class ProjectDriver {
 		//uDao.addUser(u);
 		
 		System.out.println(uDao.getUserById(2).toString());
+		
+		Reimbursement r = new Reimbursement();
 	}
 	
 }
