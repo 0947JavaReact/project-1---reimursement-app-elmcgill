@@ -1,6 +1,8 @@
 package com.revature.services;
 
 import com.revature.dao.UserDao;
+import com.revature.exceptions.EmailAlreadyExistsException;
+import com.revature.exceptions.UsernameAlreadyExistsException;
 import com.revature.models.User;
 
 public class UserService {
@@ -19,9 +21,17 @@ public class UserService {
 	//Register a new user
 	public boolean registerUser(User u) {
 		
-		
-		
-		return false;
+		if(uDao.getUserByUserName(u.getUsername()) != null) {
+			throw new UsernameAlreadyExistsException("This username has already been taken");
+		}
+		else if(uDao.getUserByEmail(u.getEmail()) != null) {
+			throw new EmailAlreadyExistsException("This email already has an account");
+		}
+		else {
+			return uDao.addUser(u);	
+		}
 	}
+	
+	
 	
 }
