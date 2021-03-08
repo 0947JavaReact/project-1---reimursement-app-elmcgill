@@ -49,6 +49,7 @@ public class UserService {
 		return toLogin.getUserId();
 	}
 	
+	
 	public boolean removeAccount(User u, String password) {
 		
 		if(!u.getPassword().equals(password)) {
