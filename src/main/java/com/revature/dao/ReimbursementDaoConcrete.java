@@ -128,7 +128,11 @@ public class ReimbursementDaoConcrete implements ReimbursementDao {
 				r.setReResolved(rs.getDate(4));
 				r.setReDesc(rs.getString(5));
 				r.setReAuthor(rs.getInt(6));
-				r.setReResolver(rs.getInt(7));
+				if(rs.getInt(7) == 0) {
+					r.setReResolver(-1);
+				}else {
+					r.setReResolver(rs.getInt(7));
+				}
 				switch (rs.getInt(8)) {
 				case 0:
 					r.setReStatus(ReimbursementStatus.PENDING);
@@ -223,7 +227,12 @@ public class ReimbursementDaoConcrete implements ReimbursementDao {
 				r.setReResolved(rs.getDate(4));
 				r.setReDesc(rs.getString(5));
 				r.setReAuthor(rs.getInt(6));
-				r.setReResolver(rs.getInt(7));
+				if(rs.getInt(7) == 0) {
+					r.setReResolver(-1);
+				}
+				else {
+					r.setReResolver(rs.getInt(7));
+				}
 				switch (rs.getInt(8)) {
 				case 0:
 					r.setReStatus(ReimbursementStatus.PENDING);
@@ -280,7 +289,12 @@ public class ReimbursementDaoConcrete implements ReimbursementDao {
 				r.setReResolved(rs.getDate(4));
 				r.setReDesc(rs.getString(5));
 				r.setReAuthor(rs.getInt(6));
-				r.setReResolver(rs.getInt(7));
+				if(rs.getInt(7) == 0) {
+					r.setReResolver(-1);
+				}
+				else {
+					r.setReResolver(rs.getInt(7));
+				}
 				switch (rs.getInt(8)) {
 				case 0:
 					r.setReStatus(ReimbursementStatus.PENDING);
@@ -337,7 +351,12 @@ public class ReimbursementDaoConcrete implements ReimbursementDao {
 				r.setReResolved(rs.getDate(4));
 				r.setReDesc(rs.getString(5));
 				r.setReAuthor(rs.getInt(6));
-				r.setReResolver(rs.getInt(7));
+				if(rs.getInt(7) == 0) {
+					r.setReResolver(-1);
+				}
+				else {
+					r.setReResolver(rs.getInt(7));
+				}
 				switch (rs.getInt(8)) {
 				case 0:
 					r.setReStatus(ReimbursementStatus.PENDING);
@@ -463,7 +482,7 @@ public class ReimbursementDaoConcrete implements ReimbursementDao {
 	}
 
 	public boolean deleteReimbursement(int reId) {
-		String sql = "DELETE from users WHERE re_id = ?;";
+		String sql = "DELETE from reimbursement WHERE re_id = ?;";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, reId);
