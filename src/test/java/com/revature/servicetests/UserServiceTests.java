@@ -73,7 +73,7 @@ public class UserServiceTests {
 		when(uDao.getUserByUserName("jdbctest")).thenReturn(null);
 		when(uDao.getUserByEmail("testemail@gmail.com")).thenReturn(null);
 
-		boolean registered = uServ.registerUser(u1);
+		boolean registered = uServ.registerUser("test", "testemail@gmail.com", "password", UserType.EMPLOYEE);
 
 		assertTrue(registered);
 
@@ -86,7 +86,7 @@ public class UserServiceTests {
 
 		when(uDao.getUserByUserName("test")).thenReturn(u1);
 
-		uServ.registerUser(u1);
+		boolean registered = uServ.registerUser("test", "testemail@gmail.com", "password", UserType.EMPLOYEE);
 
 	}
 
@@ -98,7 +98,7 @@ public class UserServiceTests {
 		when(uDao.getUserByUserName("test")).thenReturn(null);
 		when(uDao.getUserByEmail("testemail@gmail.com")).thenReturn(u1);
 
-		uServ.registerUser(u1);
+		boolean registered = uServ.registerUser("test", "testemail@gmail.com", "password", UserType.EMPLOYEE);
 
 	}
 

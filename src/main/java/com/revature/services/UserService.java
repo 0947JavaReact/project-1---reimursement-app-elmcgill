@@ -1,10 +1,13 @@
 package com.revature.services;
 
+import java.util.UUID;
+
 import com.revature.dao.UserDao;
 import com.revature.exceptions.EmailAlreadyExistsException;
 import com.revature.exceptions.InvalidCredentialsException;
 import com.revature.exceptions.UsernameAlreadyExistsException;
 import com.revature.models.User;
+import com.revature.models.UserType;
 
 public class UserService {
 	
@@ -20,16 +23,26 @@ public class UserService {
 	}
 	
 	//Register a new user, returns true or false if the use was created in the db
-	public boolean registerUser(User u) {
+	public boolean registerUser(String username, String email, String password, UserType type) {
 		
-		if(uDao.getUserByUserName(u.getUsername()) != null) {
+		if(uDao.getUserByUserName(username) != null) {
 			throw new UsernameAlreadyExistsException("This username has already been taken");
 		}
-		else if(uDao.getUserByEmail(u.getEmail()) != null) {
+		else if(uDao.getUserByEmail(email) != null) {
 			throw new EmailAlreadyExistsException("This email already has an account");
 		}
 		else {
-			return uDao.addUser(u);	
+			
+			User u = new User();
+			String id = UUID.randomUUID().toString();       
+	        int uid = Math.abs(id.hashCode());
+			u.setUserId(uid);
+			u.setUsername(username);
+			u.setEmail(email);
+			u.setPassword(password);
+			u.setRole(type);
+			
+			return uDao.addUser(u);
 		}
 	}
 	
