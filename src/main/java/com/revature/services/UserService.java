@@ -47,11 +47,13 @@ public class UserService {
 	}
 	
 	//Logs in a user, returns the id of the logged in user
-	public int loginUser(String username, String password) {
+	public User loginUser(String username, String password) {
 		
 		User toLogin = uDao.getUserByUserName(username);
 		
-		if(toLogin == null) {
+		System.out.println(toLogin);
+		
+		if(toLogin.getUserId() == -1) {
 			throw new InvalidCredentialsException("Your username or password are incorrect");
 		}
 		
@@ -59,7 +61,7 @@ public class UserService {
 			throw new InvalidCredentialsException("Your username or password are incorrect");
 		}
 		
-		return toLogin.getUserId();
+		return toLogin;
 	}
 	
 	

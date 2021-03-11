@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.revature.dao.UserDaoConcrete;
 import com.revature.exceptions.InvalidCredentialsException;
+import com.revature.models.User;
 import com.revature.services.UserService;
 
 public class LoginController {
@@ -43,13 +45,22 @@ public class LoginController {
 	    System.out.println(password);
 	    
 	    try {
-	    	int id = uServ.loginUser(username, password);
-	    	res.getWriter().write("Success");
+	    	User logged = uServ.loginUser(username, password);
+	    	
+	    	int id = logged.getUserId();
+	    	int type = logged.getRole().ordinal();
+	    	String message = "sucess";
+	    	//We need to store the user in session
+	    	ObjectNode user = mapper.createObjectNode();
+	    	user.put("userId", id);
+	    	user.put("userType", type);
+	    	user.put("message", message);
+	    	
+	    	res.getWriter().write((new ObjectMapper().writeValueAsString(user)));
 	    } catch(InvalidCredentialsException e) {
 	    	res.setStatus(400);
 	    	res.getWriter().write("Username or password incorect");
 	    }
-	    
 	}
 	
 }

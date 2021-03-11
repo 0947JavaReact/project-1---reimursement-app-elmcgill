@@ -89,7 +89,12 @@ public class UserDaoConcrete implements UserDao{
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
-				u.setUserId(rs.getInt(1));
+				if(rs.getInt(1) == 0) {
+					u.setUserId(-1);
+				}
+				else {
+					u.setUserId(rs.getInt(1));
+				}
 				u.setUsername(rs.getString(2));
 				u.setPassword(rs.getString(3));
 				u.setFirstName(rs.getString(4));
@@ -100,6 +105,10 @@ public class UserDaoConcrete implements UserDao{
 				} else {
 					u.setRole(UserType.MANAGER);
 				}
+			}
+			
+			if(u.getUserId() == 0) {
+				u.setUserId(-1);
 			}
 			
 			return u;
