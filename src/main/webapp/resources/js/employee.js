@@ -3,13 +3,27 @@
  */
 
 window.onload = ()=> {
-	
 	verifyLoggedIn();
+	console.log('beforeGetAllRe');
 	retreiveAllReimbursements();
 	
 }
 
+window.onbeforeunload = () => {
+	console.log('before unload');
+	fetch('http://localhost:8080/project1/getSession');
+}
+
 document.getElementById("new-ticket").addEventListener('click', showForm);
+
+document.getElementById("logout").addEventListener('click', logout);
+
+function logout(){
+	fetch('http://localhost:8080/project1/logout')
+	.then(() => {
+		location.href = "../html/index.html";
+	});
+}
 
 function showForm(){
 	
@@ -42,7 +56,17 @@ function retreiveAllReimbursements(){
 }
 
 function verifyLoggedIn(){
-	
-	//Check if the user is logged in
-	
+	fetch('http://localhost:8080/project1/getSession')
+	.then((res)=>{
+		console.log('fetch complete');
+		return res.json();
+	}).then((res)=>{
+		if(res.userid < 0){
+			location.href = "../html/index.html";
+		}
+		else{
+			console.log('you may proceed');
+		}
+		console.log(res);
+	});
 }

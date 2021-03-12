@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -51,6 +52,12 @@ public class LoginController {
 	    	int type = logged.getRole().ordinal();
 	    	String message = "sucess";
 	    	//We need to store the user in session
+	    	HttpSession session = req.getSession();
+			session.setAttribute("currentUser", id);
+			session.setAttribute("userRole", type);
+	    	
+			
+			
 	    	ObjectNode user = mapper.createObjectNode();
 	    	user.put("userId", id);
 	    	user.put("userType", type);

@@ -13,6 +13,8 @@
   <servlet-mapping>
   	<servlet-name>MasterServlet</servlet-name>
   	<url-pattern>/login</url-pattern>
+  	<url-pattern>/getSession</url-pattern>
+  	<url-pattern>/logout</url-pattern>
   </servlet-mapping>
   
 </web-app>
