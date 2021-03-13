@@ -67,8 +67,54 @@ function populateTable(obj){
 	
 	let table = document.getElementById("re-table");
 	
-	table.innerHTML = '<tr><th>STATUS</th><th>TYPE</th><th>AMOUNT</th><th>SUBMITTED DATE</th><th>RESOLVED DATE</th><th>RESOLVED BY</th></tr>';
+	table.innerHTML = '<tr><th>STATUS</th><th>TYPE</th><th>SUBMITTED BY</th><th>AMOUNT</th><th>SUBMITTED DATE</th><th>RESOLVED DATE</th><th>RESOLVED BY</th></tr>';
+	
+	obj.forEach((obj)=> {
+		let index = 1;
+		
+		let row=table.insertRow(index++);
+		row.id = obj.reId;
+		
+		let status = row.insertCell(0);
+		status.innerHTML = obj.statusString;
+		
+		let type = row.insertCell(1);
+		type.innerHTML = obj.typeString;
+		
+		let author = row.insertCell(2);
+		author.innerHTML = obj.authorString;
+		
+		let amount = row.insertCell(3);
+		amount.innerHTML = obj.reAmount;
+		
+		let subDate = row.insertCell(4);
+		subDate.innerHTML = new Date(obj.reSubmitted).toDateString();
+		
+		let resDate = row.insertCell(5);
+		if(obj.reResolved !== null){
+			resDate.innerHTML = new Date(obj.reResolved).toDateString();
+		}
+		else{
+			resDate.innerHTML = 'N/A';
+		}
+		
+		let resolver = row.insertCell(6);
+		if(obj.resolverString !== null){
+			resolver.innerHTML = obj.resolverString;
+		}
+		else{
+			resolver.innerHTML = 'N/A';
+		}
 
+		let descRow = table.insertRow(index++);
+		let desc = descRow.insertCell(0);
+		desc.setAttribute("colspan", "7");
+		desc.className = "desc";
+		desc.innerHTML = `<h3>Description:</h3><p>${obj.reDesc}</p>`;
+		
+	});
+	
+/*
 	for(let i=0; i<obj.length; i++){
 		console.log(i);
 		let row = table.insertRow(i+1);
@@ -97,6 +143,7 @@ function populateTable(obj){
 			resolver.innerHTML = 'N/A';
 		}
 	}
+	*/
 	
 }
 

@@ -9,6 +9,7 @@ import com.revature.models.Reimbursement;
 import com.revature.models.ReimbursementStatus;
 import com.revature.models.ReimbursementType;
 import com.revature.models.User;
+import com.revature.utils.Logging;
 
 public class ReimbursementService {
 
@@ -17,19 +18,15 @@ public class ReimbursementService {
 	public ReimbursementService(ReimbursementDao rDao) {
 		this.rDao = rDao;
 	}
-	
-	public Reimbursement getReimbursementById(int id) {
-		
-		return rDao.getReimbursementById(id);
-		
-	}
 
 	// Get all Reimbursements with All info
 	public ArrayList<Reimbursement> getAllReimbursements() {
+		Logging.logger.info("User requested a list of all reimbursement tickets");
 		return rDao.gettAllReimbursementWithAllInfo();
 	}
 	
 	public ArrayList<Reimbursement> getAllReimbursementsById(int id){
+		Logging.logger.info("User requested a list of their reimbursement tickets");
 		return rDao.getReimbursementsByEmployee(id);
 	}
 
@@ -38,6 +35,8 @@ public class ReimbursementService {
 		r.setReStatus(ReimbursementStatus.APPROVED);
 		r.setReResolver(id);
 		r.setReResolved(date);
+		
+		Logging.logger.info("Manager: " + id + " approved the reimbursement: " + r.getReId());
 		
 		return rDao.updateReimbursement(r, r.getReId());
 
@@ -49,6 +48,7 @@ public class ReimbursementService {
 		r.setReResolver(id);
 		r.setReResolved(date);
 		
+		Logging.logger.info("Manager: " + id + " denied the reimbursement: " + r.getReId());
 		
 		return rDao.updateReimbursement(r, r.getReId());
 
@@ -68,16 +68,21 @@ public class ReimbursementService {
 		r.setReStatus(ReimbursementStatus.PENDING);
 		r.setReType(type);
 		
+		Logging.logger.info("User: " + userid + " submitted a new reimbursement tiecket");
+		
 		return rDao.addReimbursement(r);
 		
 	}
 	
+	/*
 	public ArrayList<Reimbursement> getReimbursementsByType(ReimbursementType type){
 		return rDao.getReimbursementsByType(type);
 	}
+	*/
 	
 	public ArrayList<Reimbursement> getReibursementsByStatus(ReimbursementStatus status){
 		
+		Logging.logger.info("A user requested a filted list of reimbursements");
 		return rDao.getReimbursementsByStatus(status);
 		
 	}

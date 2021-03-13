@@ -8,6 +8,7 @@ import com.revature.exceptions.InvalidCredentialsException;
 import com.revature.exceptions.UsernameAlreadyExistsException;
 import com.revature.models.User;
 import com.revature.models.UserType;
+import com.revature.utils.Logging;
 
 public class UserService {
 	
@@ -26,10 +27,11 @@ public class UserService {
 	public boolean registerUser(String username, String email, String password, UserType type) {
 		
 		if(uDao.getUserByUserName(username).getUserId() != -1) {
+			Logging.logger.warn("User attempted to create an account with a username that already exists.");
 			throw new UsernameAlreadyExistsException("This username has already been taken");
 		}
 		else if(uDao.getUserByEmail(email).getUserId() != -1) {
-			System.out.println(uDao.getUserByEmail(email));
+			Logging.logger.warn("User attempted to create an account with a emails that already owns an account.");
 			throw new EmailAlreadyExistsException("This email already has an account");
 		}
 		else {
@@ -43,6 +45,7 @@ public class UserService {
 			u.setPassword(password);
 			u.setRole(type);
 			
+			Logging.logger.info("User: " + username + " successfully created an account.");
 			return uDao.addUser(u);
 		}
 	}
@@ -55,24 +58,15 @@ public class UserService {
 		System.out.println(toLogin);
 		
 		if(toLogin.getUserId() == -1) {
+			Logging.logger.warn("User attempted to login with invalid credentials.");
 			throw new InvalidCredentialsException("Your username or password are incorrect");
 		}
 		
 		if(!toLogin.getPassword().equals(password)) {
+			Logging.logger.warn("User attempted to login with invalid credentials.");
 			throw new InvalidCredentialsException("Your username or password are incorrect");
 		}
 		
 		return toLogin;
 	}
-	
-	
-	public boolean removeAccount(User u, String password) {
-		
-		if(!u.getPassword().equals(password)) {
-			throw new InvalidCredentialsException("The password you supplied is incorrect");
-		}
-		
-		return uDao.deleteUser(u.getUserId());
-	}
-	
 }

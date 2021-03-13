@@ -102,17 +102,6 @@ public class ReimbursementController {
 
 	}
 
-	public static void getPendingReimbursements(HttpServletRequest req, HttpServletResponse res)
-			throws JsonProcessingException, IOException {
-
-		System.out.println("In the pending method");
-
-		ArrayList<Reimbursement> rList = rServ.getReibursementsByStatus(ReimbursementStatus.PENDING);
-
-		System.out.println(rList);
-		res.getWriter().write((new ObjectMapper().writeValueAsString(rList)));
-	}
-
 	public static void filterReimbursements(HttpServletRequest req, HttpServletResponse res)
 			throws JsonProcessingException, IOException {
 		

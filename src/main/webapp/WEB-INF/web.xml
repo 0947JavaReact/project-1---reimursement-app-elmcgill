@@ -21,6 +21,7 @@
   	<url-pattern>/filterReimbursements</url-pattern>
   	<url-pattern>/newReimbursement</url-pattern>
   	<url-pattern>/approveReimbursement</url-pattern>
+  	<url-pattern>/denyReimbursement</url-pattern>
   </servlet-mapping>
   
 </web-app>
