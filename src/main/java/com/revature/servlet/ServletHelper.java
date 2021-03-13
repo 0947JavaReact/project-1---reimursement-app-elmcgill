@@ -35,6 +35,9 @@ public class ServletHelper {
 		case "/project1/getAllReimbursementsById":
 			ReimbursementController.getAllById(req,res);
 			break;
+		case "/project1/getPendingReimbursements":
+			ReimbursementController.getPendingReimbursements(req, res);
+			break;
 		case "/project1/newReimbursement":
 			ReimbursementController.addNewReimbursement(req, res);
 			break;

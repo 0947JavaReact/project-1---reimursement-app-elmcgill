@@ -250,12 +250,15 @@ public class ReimbursementDaoConcrete implements ReimbursementDao {
 
 	public ArrayList<Reimbursement> getReimbursementsByStatus(ReimbursementStatus status) {
 		ArrayList<Reimbursement> rList = new ArrayList<Reimbursement>();
-		String sql = "SELECT * FROM reimbursement WHERE re_status = ?;";
+		String sql = "{? = call filter_re_with_users_status_type(?)}";
 
 		try {
-			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setInt(1, status.ordinal());
-			ResultSet rs = ps.executeQuery();
+			con.setAutoCommit(false);
+			CallableStatement cs = con.prepareCall(sql);
+			cs.registerOutParameter(1, Types.OTHER);
+			cs.setString(2, status.toString());
+			cs.execute();
+			ResultSet rs = (ResultSet) cs.getObject(1);
 
 			while (rs.next()) {
 				Reimbursement r = new Reimbursement();
@@ -265,49 +268,22 @@ public class ReimbursementDaoConcrete implements ReimbursementDao {
 				r.setReSubmitted(rs.getDate(3));
 				r.setReResolved(rs.getDate(4));
 				r.setReDesc(rs.getString(5));
-				r.setReAuthor(rs.getInt(6));
-				if(rs.getInt(7) == 0) {
-					r.setReResolver(-1);
-				}
-				else {
-					r.setReResolver(rs.getInt(7));
-				}
-				switch (rs.getInt(8)) {
-				case 0:
-					r.setReStatus(ReimbursementStatus.PENDING);
-					break;
-				case 1:
-					r.setReStatus(ReimbursementStatus.APPROVED);
-					break;
-				default:
-					r.setReStatus(ReimbursementStatus.DENIED);
-					break;
-				}
-				switch (rs.getInt(9)) {
-				case 0:
-					r.setReType(ReimbursementType.LODGING);
-					break;
-				case 1:
-					r.setReType(ReimbursementType.TRAVEL);
-					break;
-				case 2:
-					r.setReType(ReimbursementType.FOOD);
-					break;
-				default:
-					r.setReType(ReimbursementType.OTHER);
-					break;
-				}
+				r.setAuthorString(rs.getString(6));
+				r.setResolverString(rs.getString(7));
+				r.setStatusString(rs.getString(8));
+				r.setTypeString(rs.getString(9));
 
 				rList.add(r);
-
 			}
+
+			return rList;
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return rList;
+		return null;
 	}
 
 	public ArrayList<Reimbursement> getReimbursementsByEmployee(int id) {

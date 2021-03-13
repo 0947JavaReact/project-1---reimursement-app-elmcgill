@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.revature.dao.ReimbursementDao;
 import com.revature.dao.ReimbursementDaoConcrete;
 import com.revature.models.Reimbursement;
+import com.revature.models.ReimbursementStatus;
 import com.revature.models.ReimbursementType;
 import com.revature.services.ReimbursementService;
 
@@ -88,6 +89,16 @@ public class ReimbursementController {
 	    
 	    res.getWriter().write((new ObjectMapper().writeValueAsString(ret)));
 		
+	}
+	
+	public static void getPendingReimbursements(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException, IOException{
+		
+		System.out.println("In the pending method");
+		
+		ArrayList<Reimbursement> rList = rServ.getReibursementsByStatus(ReimbursementStatus.PENDING);
+		
+		System.out.println(rList);
+		res.getWriter().write((new ObjectMapper().writeValueAsString(rList)));
 	}
 	
 }

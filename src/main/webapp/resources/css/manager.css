@@ -1,0 +1,35 @@
+@charset "ISO-8859-1";
+
+body {
+	margin: 0;
+	font-family: 'Roboto', sans-serif;
+}
+
+.container {
+	margin-top: 60px;
+	display: flex;
+	flex-direction: column;
+}
+
+.reimbursements {
+	width: 67%;
+	display: flex;
+	flex-direction: column;
+	align-self: center; justify-content : center;
+	align-items: center;
+	justify-content: center;
+}
+
+.reimbursement-table {
+	border-collapse: collapse;
+}
+
+td, th {
+	border: 1px solid #000000;
+	text-align: left;
+	padding: 10px;
+}
+
+tr:nth-child(even) {
+	background-color: #ffe3bb;
+}

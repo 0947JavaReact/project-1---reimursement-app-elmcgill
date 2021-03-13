@@ -64,4 +64,10 @@ public class ReimbursementService {
 	public ArrayList<Reimbursement> getReimbursementsByType(ReimbursementType type){
 		return rDao.getReimbursementsByType(type);
 	}
+	
+	public ArrayList<Reimbursement> getReibursementsByStatus(ReimbursementStatus status){
+		
+		return rDao.getReimbursementsByStatus(status);
+		
+	}
 }
