@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.revature.controllers.LoginController;
 import com.revature.controllers.LogoutController;
+import com.revature.controllers.RegisterController;
 import com.revature.controllers.ReimbursementController;
 import com.revature.controllers.SessionController;
 
@@ -21,6 +22,9 @@ public class ServletHelper {
 		
 		case "/project1/login":
 			LoginController.doLogin(req, res);
+			break;
+		case "/project1/register":
+			RegisterController.registerUser(req, res);
 			break;
 		case "/project1/getSession":
 			SessionController.getSession(req,res);

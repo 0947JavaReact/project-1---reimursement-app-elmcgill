@@ -25,10 +25,11 @@ public class UserService {
 	//Register a new user, returns true or false if the use was created in the db
 	public boolean registerUser(String username, String email, String password, UserType type) {
 		
-		if(uDao.getUserByUserName(username) != null) {
+		if(uDao.getUserByUserName(username).getUserId() != -1) {
 			throw new UsernameAlreadyExistsException("This username has already been taken");
 		}
-		else if(uDao.getUserByEmail(email) != null) {
+		else if(uDao.getUserByEmail(email).getUserId() != -1) {
+			System.out.println(uDao.getUserByEmail(email));
 			throw new EmailAlreadyExistsException("This email already has an account");
 		}
 		else {
