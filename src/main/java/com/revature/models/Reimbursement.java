@@ -204,7 +204,11 @@ public class Reimbursement {
 	public String toString() {
 		return "Reimbursement [reId=" + reId + ", reAmount=" + reAmount + ", reSubmitted=" + reSubmitted
 				+ ", reResolved=" + reResolved + ", reDesc=" + reDesc + ", reAuthor=" + reAuthor + ", reResolver="
-				+ reResolver + ", reStatus=" + reStatus + ", reType=" + reType + "]";
+				+ reResolver + ", reStatus=" + reStatus + ", reType=" + reType + ", authorString=" + authorString
+				+ ", resolverString=" + resolverString + ", statusString=" + statusString + ", typeString=" + typeString
+				+ "]";
 	}
+
+	
 	
 }

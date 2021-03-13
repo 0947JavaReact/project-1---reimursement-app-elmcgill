@@ -22,6 +22,10 @@ public class ReimbursementService {
 	public ArrayList<Reimbursement> getAllReimbursements() {
 		return rDao.gettAllReimbursementWithAllInfo();
 	}
+	
+	public ArrayList<Reimbursement> getAllReimbursementsById(int id){
+		return rDao.getReimbursementsByEmployee(id);
+	}
 
 	public Reimbursement approveReimbursement(Reimbursement r) {
 
@@ -48,6 +52,7 @@ public class ReimbursementService {
 		r.setReAmount(amount);
 		r.setReSubmitted(date);
 		r.setReAuthor(userid);
+		r.setReResolver(-1);
 		r.setReDesc(desc);
 		r.setReStatus(ReimbursementStatus.PENDING);
 		r.setReType(type);

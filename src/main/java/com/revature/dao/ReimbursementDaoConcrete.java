@@ -191,10 +191,11 @@ public class ReimbursementDaoConcrete implements ReimbursementDao {
 				r.setReSubmitted(rs.getDate(3));
 				r.setReResolved(rs.getDate(4));
 				r.setReDesc(rs.getString(5));
-				r.setAuthorString(rs.getString(6));
-				r.setResolverString(rs.getString(7));
-				r.setStatusString(rs.getString(8));
-				r.setTypeString(rs.getString(9));
+				r.setReAuthor(rs.getInt(6));
+				r.setAuthorString(rs.getString(7));
+				r.setResolverString(rs.getString(8));
+				r.setStatusString(rs.getString(9));
+				r.setTypeString(rs.getString(10));
 
 				rList.add(r);
 			}
@@ -309,13 +310,13 @@ public class ReimbursementDaoConcrete implements ReimbursementDao {
 		return rList;
 	}
 
-	public ArrayList<Reimbursement> getReimbursementsByEmployee(User u) {
+	public ArrayList<Reimbursement> getReimbursementsByEmployee(int id) {
 		ArrayList<Reimbursement> rList = new ArrayList<Reimbursement>();
 		String sql = "SELECT * FROM reimbursement WHERE re_author = ?;";
 
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setInt(1, u.getUserId());
+			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {

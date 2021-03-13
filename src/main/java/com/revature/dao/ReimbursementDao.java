@@ -21,7 +21,7 @@ public interface ReimbursementDao {
 	
 	ArrayList<Reimbursement> getReimbursementsByStatus(ReimbursementStatus status);
 	
-	ArrayList<Reimbursement> getReimbursementsByEmployee(User u);
+	ArrayList<Reimbursement> getReimbursementsByEmployee(int id);
 	
 	ArrayList<Reimbursement> getReimbursementsByManager(User u);
 	
