@@ -23,6 +23,9 @@ document.getElementById("submit").addEventListener("click", (event) => {
 		document.getElementById("password1").value = '';
 		document.getElementById("password2").value = '';
 	}
+	
+	let getSelectedValue = document.querySelector('input[name="rad"]:checked').value;
+	console.log(getSelectedValue);
 
 });
 
