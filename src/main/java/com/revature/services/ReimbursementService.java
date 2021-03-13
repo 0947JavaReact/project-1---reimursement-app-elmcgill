@@ -17,6 +17,12 @@ public class ReimbursementService {
 	public ReimbursementService(ReimbursementDao rDao) {
 		this.rDao = rDao;
 	}
+	
+	public Reimbursement getReimbursementById(int id) {
+		
+		return rDao.getReimbursementById(id);
+		
+	}
 
 	// Get all Reimbursements with All info
 	public ArrayList<Reimbursement> getAllReimbursements() {
@@ -27,18 +33,23 @@ public class ReimbursementService {
 		return rDao.getReimbursementsByEmployee(id);
 	}
 
-	public Reimbursement approveReimbursement(Reimbursement r) {
+	public Reimbursement approveReimbursement(Reimbursement r, int id, Date date) {
 
 		r.setReStatus(ReimbursementStatus.APPROVED);
-
+		r.setReResolver(id);
+		r.setReResolved(date);
+		
 		return rDao.updateReimbursement(r, r.getReId());
 
 	}
 
-	public Reimbursement denyReimbursement(Reimbursement r) {
+	public Reimbursement denyReimbursement(Reimbursement r, int id, Date date) {
 
 		r.setReStatus(ReimbursementStatus.DENIED);
-
+		r.setReResolver(id);
+		r.setReResolved(date);
+		
+		
 		return rDao.updateReimbursement(r, r.getReId());
 
 	}

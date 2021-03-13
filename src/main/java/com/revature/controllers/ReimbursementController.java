@@ -101,4 +101,59 @@ public class ReimbursementController {
 		res.getWriter().write((new ObjectMapper().writeValueAsString(rList)));
 	}
 	
+	public static void acceptReimbursement(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException, IOException{
+
+		StringBuilder buffer = new StringBuilder();
+	    BufferedReader reader = req.getReader();
+	    String line;
+	    while ((line = reader.readLine()) != null) {
+	        buffer.append(line);
+	        buffer.append(System.lineSeparator());
+	    }
+	    String data = buffer.toString();
+	    
+	    System.out.println(data);
+	    
+	    ObjectMapper mapper = new ObjectMapper();
+	    JsonNode parsedObj = mapper.readTree(data);
+	    
+	    int userId = Integer.parseInt(parsedObj.get("userid").asText());
+	    int reId = Integer.parseInt(parsedObj.get("reid").asText());
+	    Date resolved = new Date(Long.parseLong(parsedObj.get("date").asText()));
+	    
+		
+		Reimbursement r = rServ.getReimbursementById(reId);
+		
+		rServ.approveReimbursement(r, userId, resolved);
+	    
+		res.getWriter().write("OK");
+	}
+	
+	public static void denyReimbursement(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException, IOException{
+		
+		StringBuilder buffer = new StringBuilder();
+	    BufferedReader reader = req.getReader();
+	    String line;
+	    while ((line = reader.readLine()) != null) {
+	        buffer.append(line);
+	        buffer.append(System.lineSeparator());
+	    }
+	    String data = buffer.toString();
+	    
+	    System.out.println(data);
+	    
+	    ObjectMapper mapper = new ObjectMapper();
+	    JsonNode parsedObj = mapper.readTree(data);
+	    
+	    int userId = Integer.parseInt(parsedObj.get("userid").asText());
+	    int reId = Integer.parseInt(parsedObj.get("reId").asText());
+	    Date resolved = new Date(Long.parseLong(parsedObj.get("date").asText()));
+	    
+		
+		Reimbursement r = rServ.getReimbursementById(reId);
+		
+		rServ.denyReimbursement(r, userId, resolved);
+		
+	}
+	
 }

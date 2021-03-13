@@ -34,17 +34,32 @@ async function approve(id) {
 	
 	console.log(`Approved this reimbursement ${id}`);
 	
+	let date = Date.now();
+	
+	obj = {
+		userid : userId,
+		reid : id,
+		date: date
+	}
+	
+	console.log(date);
+	
+	let res = await fetch(`http://localhost:8080/project1/approveReimbursement`,
+	{
+		method: 'POST',
+		headers: {
+      		'Content-Type': 'application/json'
+    	},
+    	body: JSON.stringify(obj)
+	});
+	
+	await getPendingReimbursements();
+	
 }
 
 async function deny(id){
 	
 	console.log(`Deny this reimbursement ${id}`);
-	
-}
-
-function desc(id){
-	
-	console.log(`Show the description for ${id}`);
 	
 }
 

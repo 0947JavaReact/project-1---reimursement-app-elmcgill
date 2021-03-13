@@ -41,6 +41,9 @@ public class ServletHelper {
 		case "/project1/newReimbursement":
 			ReimbursementController.addNewReimbursement(req, res);
 			break;
+		case "/project1/approveReimbursement":
+			ReimbursementController.acceptReimbursement(req, res);
+			break;
 		}
 	}
 	

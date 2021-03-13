@@ -19,6 +19,7 @@
   	<url-pattern>/getAllReimbursementsById</url-pattern>
   	<url-pattern>/getPendingReimbursements</url-pattern>
   	<url-pattern>/newReimbursement</url-pattern>
+  	<url-pattern>/approveReimbursement</url-pattern>
   </servlet-mapping>
   
 </web-app>
