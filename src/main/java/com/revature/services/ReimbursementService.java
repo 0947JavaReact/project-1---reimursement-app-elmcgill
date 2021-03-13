@@ -18,6 +18,12 @@ public class ReimbursementService {
 	public ReimbursementService(ReimbursementDao rDao) {
 		this.rDao = rDao;
 	}
+	
+	public Reimbursement getReimbursementById(int reId) {
+		
+		return rDao.getReimbursementById(reId);
+		
+	}
 
 	// Get all Reimbursements with All info
 	public ArrayList<Reimbursement> getAllReimbursements() {

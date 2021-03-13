@@ -214,7 +214,7 @@ public class ReimbursementDaoTests {
 		rDao.addReimbursement(r2);
 		rDao.addReimbursement(r3);
 
-		ArrayList<Reimbursement> rList = rDao.getReimbursementsByEmployee(u1);
+		ArrayList<Reimbursement> rList = rDao.getReimbursementsByEmployee(u1.getUserId());
 
 		assertEquals(3, rList.size());
 

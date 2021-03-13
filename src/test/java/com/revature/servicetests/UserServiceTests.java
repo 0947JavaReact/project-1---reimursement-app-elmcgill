@@ -34,7 +34,7 @@ public class UserServiceTests {
 		MockitoAnnotations.initMocks(this);
 	}
 
-	/*
+	
 	@Test
 	public void testValidLogin() {
 
@@ -42,9 +42,9 @@ public class UserServiceTests {
 
 		when(uDao.getUserByUserName(anyString())).thenReturn(u1);
 
-		int id = uServ.loginUser("test", "password");
+		User loggedIn = uServ.loginUser("test", "password");
 
-		assertEquals(u1.getUserId(), id);
+		assertEquals(u1.getUserId(), loggedIn.getUserId());
 
 	}
 
@@ -52,7 +52,7 @@ public class UserServiceTests {
 	public void testBadUserNameLogin() {
 		when(uDao.getUserByUserName(anyString())).thenReturn(null);
 
-		int id = uServ.loginUser("test", "password");
+		User loggedIn = uServ.loginUser("test", "password");
 	}
 
 	@Test(expected = InvalidCredentialsException.class)
@@ -62,7 +62,7 @@ public class UserServiceTests {
 
 		when(uDao.getUserByUserName(anyString())).thenReturn(u1);
 
-		int id = uServ.loginUser("test", "badpassword");
+		User loggedIn = uServ.loginUser("test", "password");
 	}
 
 	@Test
@@ -102,28 +102,5 @@ public class UserServiceTests {
 		boolean registered = uServ.registerUser("test", "testemail@gmail.com", "password", UserType.EMPLOYEE);
 
 	}
-
-	@Test
-	public void testValidDeleteAccount() {
-
-		User u1 = new User(1, "test", "password", "jdbctest", "user", "testemail@gmail.com", UserType.EMPLOYEE, null);
-
-		when(uDao.deleteUser(u1.getUserId())).thenReturn(true);
-
-		boolean deleted = uServ.removeAccount(u1, "password");
-		assertTrue(deleted);
-	}
-
-	@Test(expected = InvalidCredentialsException.class)
-	public void testInvalidDelete() {
-
-		User u1 = new User(1, "test", "password", "jdbctest", "user", "testemail@gmail.com", UserType.EMPLOYEE, null);
-
-		when(uDao.deleteUser(u1.getUserId())).thenReturn(true);
-
-		boolean deleted = uServ.removeAccount(u1, "pass");
-
-	}
-	*/
 
 }
