@@ -17,7 +17,8 @@
   	<url-pattern>/getSession</url-pattern>
   	<url-pattern>/logout</url-pattern>
   	<url-pattern>/getAllReimbursementsById</url-pattern>
-  	<url-pattern>/getPendingReimbursements</url-pattern>
+  	<url-pattern>/getAllReimbursements</url-pattern>
+  	<url-pattern>/filterReimbursements</url-pattern>
   	<url-pattern>/newReimbursement</url-pattern>
   	<url-pattern>/approveReimbursement</url-pattern>
   </servlet-mapping>

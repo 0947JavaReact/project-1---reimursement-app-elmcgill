@@ -63,71 +63,68 @@ async function deny(id){
 	
 }
 
-async function getPendingReimbursements(){
-	
-	let res = await fetch(`http://localhost:8080/project1/getPendingReimbursements`);
-	let obj = await res.json();
-	console.log(obj);
+function populateTable(obj){
 	
 	let table = document.getElementById("re-table");
 	
-	table.innerHTML = '<tr><th>STATUS</th><th>TYPE</th><th>AMOUNT</th><th>EMPLOYEE</th><th>SUBMITTED DATE</th><th>APPROVE/DENY</th></tr>';
-	
-	obj.forEach((obj)=> {
-		let index = 1;
-		
-		let row=table.insertRow(index++);
-		row.id = obj.reId;
-		let status = row.insertCell(0);
-		status.innerHTML = obj.statusString;
-		let type = row.insertCell(1);
-		type.innerHTML = obj.typeString;
-		let amount = row.insertCell(2);
-		amount.innerHTML = obj.reAmount;
-		let employee = row.insertCell(3);
-		employee.innerHTML = obj.authorString;
-		let subDate = row.insertCell(4);
-		subDate.innerHTML = new Date(obj.reSubmitted).toDateString();
-		let appDen = row.insertCell(5);
-		appDen.innerHTML = `<button onclick="approve(${obj.reId})">Approve</button> <button onclick="deny(${obj.reId})">Deny</button>`;
-		let descRow = table.insertRow(index++);
-		let desc = descRow.insertCell(0);
-		desc.setAttribute("colspan", "6");
-		desc.className = "desc";
-		desc.innerHTML = `<h3>Description:</h3><p>${obj.reDesc}</p>`;
-		
-	});
-	
-	/*
+	table.innerHTML = '<tr><th>STATUS</th><th>TYPE</th><th>AMOUNT</th><th>SUBMITTED DATE</th><th>RESOLVED DATE</th><th>RESOLVED BY</th></tr>';
+
 	for(let i=0; i<obj.length; i++){
-		
-		let row=table.insertRow(i+1);
-		row.id = obj[i].reId;
+		console.log(i);
+		let row = table.insertRow(i+1);
 		let status = row.insertCell(0);
 		status.innerHTML = obj[i].statusString;
 		let type = row.insertCell(1);
 		type.innerHTML = obj[i].typeString;
 		let amount = row.insertCell(2);
 		amount.innerHTML = obj[i].reAmount;
-		let employee = row.insertCell(3);
-		employee.innerHTML = obj[i].authorString;
-		let subDate = row.insertCell(4);
+		let subDate = row.insertCell(3);
 		subDate.innerHTML = new Date(obj[i].reSubmitted).toDateString();
-		let appDen = row.insertCell(5);
-		appDen.innerHTML = `<button onclick="approve(${obj[i].reId})">Approve</button> <button onclick="deny(${obj[i].reId})">Deny</button>`;
-		let descRow = table.insertRow(i+1);
-		let desc = descRow.insertCell(0);
-		desc.setAttribute("colspan", "6");
-		desc.innerHTML = obj[i].reDesc;
+		let resDate = row.insertCell(4);
+		
+		if(obj[i].reResolved !== null){
+			resDate.innerHTML = new Date(obj[i].reResolved).toDateString();
+		}
+		else{
+			resDate.innerHTML = 'N/A';
+		}
+		
+		let resolver = row.insertCell(5);
+		if(obj[i].resolverString !== null){
+			resolver.innerHTML = obj[i].resolverString;
+		}
+		else{
+			resolver.innerHTML = 'N/A';
+		}
 	}
-	*/
 	
+}
+
+document.getElementById("filter").addEventListener('click', async () => {
+	let status = document.getElementById("status").value;
+	console.log(status);
+	if(status<3){
+		let res = await fetch(`http://localhost:8080/project1/filterReimbursements?status=${status}`);
+		let obj = await res.json();
+		populateTable(obj);
+	}
+	else{
+		let obj = await retreiveAllReimbursements();
+		populateTable(obj);
+	}
+});
+
+var retreiveAllReimbursements = async () => {
+	let res = await fetch(`http://localhost:8080/project1/getAllReimbursements`);
+	let obj = await res.json();
+	return obj;
 }
 
 let init = async () => {
 	await verifyLoggedIn();
 	console.log(userId);
-	await getPendingReimbursements();
+	let rows = await retreiveAllReimbursements();
+	populateTable(rows);
 }
 
 init();

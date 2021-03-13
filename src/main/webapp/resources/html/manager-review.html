@@ -22,20 +22,20 @@
 		</ul>
 	</div>
 	<div class="container">
-		<h2>Welcome #Placerholder#!</h2>
 		<div class="reimbursements">
-			<h3>All Employee Reimbursement Tickets</h3>
-			<button id="filter">Filter Reimbursements by Status</button>
-			<select name="status" id="status">
-				<option value=0>PENDING</option>
-				<option value=1>APPROVED</option>
-				<option value=2>DENIED</option>
-				<option value=3>SHOW ALL</option>
-			</select>
+			<h3>Pending Reimbursements</h3>
 			<table id="re-table" class="reimbursement-table">
+				<tr>
+					<th>STATUS</th>
+					<th>TYPE</th>
+					<th>AMOUNT</th>
+					<th>EMPLOYEE</th>
+					<th>SUBMITTED DATE</th>
+					<th>APPROVE/DENY</th>
+				</tr>
 			</table>
 		</div>
 	</div>
-	<script src="../js/manager.js"></script>
+	<script src="../js/manager-review.js"></script>
 </body>
 </html>

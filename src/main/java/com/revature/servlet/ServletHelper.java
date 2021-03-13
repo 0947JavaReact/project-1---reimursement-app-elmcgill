@@ -32,8 +32,14 @@ public class ServletHelper {
 		case "/project1/logout":
 			LogoutController.doLogout(req, res);
 			break;
+		case "/project1/getAllReimbursements":
+			ReimbursementController.getAllReimbursements(req, res);
+			break;
 		case "/project1/getAllReimbursementsById":
 			ReimbursementController.getAllById(req,res);
+			break;
+		case "/project1/filterReimbursements":
+			ReimbursementController.filterReimbursements(req, res);
 			break;
 		case "/project1/getPendingReimbursements":
 			ReimbursementController.getPendingReimbursements(req, res);
@@ -43,6 +49,9 @@ public class ServletHelper {
 			break;
 		case "/project1/approveReimbursement":
 			ReimbursementController.acceptReimbursement(req, res);
+			break;
+		case "project1/denyReimbursement":
+			ReimbursementController.denyReimbursement(req, res);
 			break;
 		}
 	}
