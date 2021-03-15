@@ -13,18 +13,15 @@
 <body>
 	<div class="navbar">
 		<ul class="nav-items">
-			<li class="nav-item"><a href="./employee-dashboard"
-				class="nav-link">Home</a></li>
-			<li class="nav-item"><a href="#dashboard" class="nav-link">Dashboard</a>
-			</li>
+			<li class="nav-item">Home</li>
 			<li class="nav-item" id="logout">Logout</li>
 		</ul>
 	</div>
 	<div class="container">
-		<h2>Welcome #Placerholder#!</h2>
+		<h2 id="welcome">Welcome #Placerholder#!</h2>
 
 		<div class="reimbursements">
-			<h3>#Placeholders# Reimbursements</h3>
+			<h3 id="re-name">#Placeholders# Reimbursements</h3>
 			<table id="re-table" class="reimbursement-table">
 				<tr>
 					<th>STATUS</th>
@@ -41,10 +38,10 @@
 				<form id="re-form">
 					<h5>Reimbursement Amount</h5>
 					<input type='number' id="amount" placeholder="0.00" />
-					
+
 					<h5>Date of the expenditure</h5>
-					<input type="date" id="date"/>
-					
+					<input type="date" id="date" />
+
 					<h5>Select the type of expenditure</h5>
 					<select name="types" id="types">
 						<option value=0>Lodging</option>
@@ -52,11 +49,12 @@
 						<option value=2>Food</option>
 						<option value=3>Other</option>
 					</select>
-					
+
 					<h5>Please describe the expense is 250 characters or less</h5>
 					<textarea id="desc" rows="5" cols="50" maxlength="250"></textarea>
-					
-					<button class='send' type='submit' id="send">Submit the ticket.</button>
+
+					<button class='send' type='submit' id="send">Submit the
+						ticket.</button>
 				</form>
 			</div>
 		</div>

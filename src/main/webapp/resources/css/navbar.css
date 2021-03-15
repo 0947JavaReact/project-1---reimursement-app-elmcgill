@@ -18,12 +18,15 @@ body {
 
 .nav-item {
 	float: left;
-}
-
-.nav-link {
-	display: block;
+    display: block;
 	color: white;
 	text-align: center;
 	padding: 14px 16px;
+    margin-left: 20px;
 	text-decoration: none;
+}
+
+.nav-item:hover{
+    cursor: pointer;
+    background: #52057b;
 }

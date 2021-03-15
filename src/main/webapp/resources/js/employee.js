@@ -1,8 +1,7 @@
 /**
  * 
  */
-window.onbeforeunload = () => {
-	console.log('before unload');
+window.onbeforeunload = async () => {
 	fetch('http://localhost:8080/project1/getSession');
 }
 
@@ -21,7 +20,6 @@ function logout(){
 
 function showForm(){
 	
-	console.log("Clicked");
 	document.getElementById("new-reimbursement").style.display = "flex";
 	
 }
@@ -30,7 +28,6 @@ function showForm(){
 var retreiveAllReimbursements = async () => {
 	let res = await fetch(`http://localhost:8080/project1/getAllReimbursementsById?id=${userId}`);
 	let obj = await res.json();
-	console.log(obj);
 	
 	
 	
@@ -39,7 +36,6 @@ var retreiveAllReimbursements = async () => {
 	table.innerHTML = '<tr><th>STATUS</th><th>TYPE</th><th>AMOUNT</th><th>SUBMITTED DATE</th><th>RESOLVED DATE</th><th>RESOLVED BY</th></tr>';
 
 	for(let i=0; i<obj.length; i++){
-		console.log(i);
 		let row = table.insertRow(i+1);
 		let status = row.insertCell(0);
 		status.innerHTML = obj[i].statusString;
@@ -90,8 +86,6 @@ document.getElementById("send").addEventListener('click', async (event) => {
 	let type = document.getElementById("types").value;
 	let desc = document.getElementById("desc").value;
 	
-	console.log(amount, Date.parse(date), type, desc, userId);
-	
 	let obj = {
 		amount: amount,
 		date: Date.parse(date),
@@ -121,7 +115,11 @@ document.getElementById("send").addEventListener('click', async (event) => {
 
 let init = async () => {
 	await verifyLoggedIn();
-	console.log(userId);
+	let res = await fetch(`http://localhost:8080/project1/getUser?userid=${userId}`);
+	let user = await res.json();
+	let username = user.username;
+	document.getElementById("welcome").innerText = `Welcome ${username}!`;
+	document.getElementById("re-name").innerText = `${username}'s Past Reimbursements`;
 	await retreiveAllReimbursements();
 }
 

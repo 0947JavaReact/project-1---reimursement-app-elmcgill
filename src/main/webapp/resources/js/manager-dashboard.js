@@ -1,13 +1,13 @@
-/**
- * 
- */
-
 window.onbeforeunload = () => {
 	console.log('before unload');
 	fetch('http://localhost:8080/project1/getSession');
 }
 
 document.getElementById("logout").addEventListener('click', logout);
+
+document.getElementById("review").addEventListener('click', () => {
+	location.href = "../html/manager-review.html";
+});
 
 let userId;
 
