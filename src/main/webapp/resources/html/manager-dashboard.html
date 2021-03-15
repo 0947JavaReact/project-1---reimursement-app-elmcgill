@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/navbar.css">
+<link rel="stylesheet" href="../css/manager.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+	rel="stylesheet">
+</head>
+<body>
+	<div class="navbar">
+		<ul class="nav-items">
+			<li class="nav-item"><a href="./employee-dashboard"
+				class="nav-link">Home</a></li>
+			<li class="nav-item"><a href="#dashboard" class="nav-link">Dashboard</a>
+			</li>
+			<li class="nav-item" id="logout"><a href="#index"
+				class="nav-link">Logout</a></li>
+		</ul>
+	</div>
+	<div class="container">
+		<h2>Welcome #Placerholder#!</h2>
+		<div class="reimbursements">
+			<h3>All Employee Reimbursement Tickets</h3>
+			<button id="filter">Filter Reimbursements by Status</button>
+			<select name="status" id="status">
+				<option value=0>PENDING</option>
+				<option value=1>APPROVED</option>
+				<option value=2>DENIED</option>
+				<option value=3>SHOW ALL</option>
+			</select>
+			<table id="re-table" class="reimbursement-table">
+			</table>
+		</div>
+	</div>
+	<script src="../js/manager.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+@charset "ISO-8859-1";
+
+body {
+	margin: 0;
+	font-family: 'Roboto', sans-serif;
+}
+
+.container {
+	margin-top: 60px;
+	display: flex;
+	flex-direction: column;
+}
+
+.reimbursements {
+	width: 67%;
+	display: flex;
+	flex-direction: column;
+	align-self: center; justify-content : center;
+	align-items: center;
+	justify-content: center;
+}
+
+.reimbursement-table {
+	border-collapse: collapse;
+}
+
+td, th {
+	border: 1px solid #000000;
+	text-align: left;
+	padding: 10px;
+}
+
+tr:nth-child(even) {
+	background-color: #ffe3bb;
+}
+
+#new-ticket {
+	margin-top: 20px;
+	padding: 15px 32px;
+	border: none;
+	background-color: #f26926;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	transition: 0.5s;
+}
+
+#new-ticket:hover{
+	cursor:pointer;
+	background-color: #fcdfd1;
+	border: 1px solid #c0c0c0;
+}
+
+.new-reimbursement {
+	margin-top: 20px;
+	width: 33%;
+	height: fit-content;
+	display: none;
+	flex-direction: column;
+	border-radius: 5px;
+	border: 1px solid lightgray;
+	padding: 20px;
+}
+
+.new-reimbursement>h1 {
+	font-weight: 500;
+	margin-bottom: 20px;
+}
+
+.new-reimbursement>form>h5 {
+	margin-bottom: 5px;
+}
+
+.new-reimbursement>form>input {
+	height: 30px;
+	margin-bottom: 10px;
+	background-color: white;
+	width: 98%;
+}
+
+.new-reimbursement>form>select {
+	height: 30px;
+	margin-bottom: 10px;
+	background-color: white;
+	width: 98%;
+}
+
+.new-reimbursement>form>textarea {
+	margin-bottom: 10px;
+	background-color: white;
+	width: 98%;
+}
+
+.new-reimbursement>p {
+	margin-top: 15px;
+	font-size: 12px;
+}
+
+.send {
+	background: #f26926;
+	border-radius: 2px;
+	width: 100%;
+	height: 30px;
+	border: 1px solid;
+	margin-top: 10px;
+	border-color: #a88734 #9c7e31 #846a29;
+}

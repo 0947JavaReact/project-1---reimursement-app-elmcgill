@@ -13,14 +13,17 @@ public class Reimbursement {
 	private int reResolver;
 	private ReimbursementStatus reStatus;
 	private ReimbursementType reType;
-	
+	private String authorString;
+	private String resolverString;
+	private String statusString;
+	private String typeString;
 	
 	public Reimbursement() {
 		super();
 	}
 
 	public Reimbursement(int reId, double reAmount, Date reSubmitted, Date reResolved, String reDesc, int reAuthor,
-			int reResolver, ReimbursementStatus reStatus, ReimbursementType reType) {
+				int reResolver, ReimbursementStatus reStatus, ReimbursementType reType, String authorString, String resolverString, String statusString, String typeString) {
 		this.reId = reId;
 		this.reAmount = reAmount;
 		this.reSubmitted = reSubmitted;
@@ -30,6 +33,10 @@ public class Reimbursement {
 		this.reResolver = reResolver;
 		this.reStatus = reStatus;
 		this.reType = reType;
+		this.authorString = authorString;
+		this.resolverString = resolverString;
+		this.statusString = statusString;
+		this.typeString = typeString;
 	}
 
 	public int getReId() {
@@ -104,6 +111,38 @@ public class Reimbursement {
 		this.reType = reType;
 	}
 
+	public String getAuthorString() {
+		return authorString;
+	}
+
+	public void setAuthorString(String authorString) {
+		this.authorString = authorString;
+	}
+
+	public String getResolverString() {
+		return resolverString;
+	}
+
+	public void setResolverString(String resolverString) {
+		this.resolverString = resolverString;
+	}
+
+	public String getStatusString() {
+		return statusString;
+	}
+
+	public void setStatusString(String statusString) {
+		this.statusString = statusString;
+	}
+
+	public String getTypeString() {
+		return typeString;
+	}
+
+	public void setTypeString(String typeString) {
+		this.typeString = typeString;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -165,7 +204,11 @@ public class Reimbursement {
 	public String toString() {
 		return "Reimbursement [reId=" + reId + ", reAmount=" + reAmount + ", reSubmitted=" + reSubmitted
 				+ ", reResolved=" + reResolved + ", reDesc=" + reDesc + ", reAuthor=" + reAuthor + ", reResolver="
-				+ reResolver + ", reStatus=" + reStatus + ", reType=" + reType + "]";
+				+ reResolver + ", reStatus=" + reStatus + ", reType=" + reType + ", authorString=" + authorString
+				+ ", resolverString=" + resolverString + ", statusString=" + statusString + ", typeString=" + typeString
+				+ "]";
 	}
+
+	
 	
 }
