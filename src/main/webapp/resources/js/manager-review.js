@@ -13,6 +13,10 @@ window.onbeforeunload = () => {
 
 document.getElementById("logout").addEventListener('click', logout);
 
+document.getElementById("home").addEventListener('click', () => {
+	location.href = "../html/manager-dashboard.html";
+});
+
 let userId;
 
 function logout(){

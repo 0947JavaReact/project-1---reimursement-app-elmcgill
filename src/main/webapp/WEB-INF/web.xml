@@ -15,6 +15,7 @@
   	<url-pattern>/login</url-pattern>
   	<url-pattern>/register</url-pattern>
   	<url-pattern>/getSession</url-pattern>
+  	<url-pattern>/getUser</url-pattern>
   	<url-pattern>/logout</url-pattern>
   	<url-pattern>/getAllReimbursementsById</url-pattern>
   	<url-pattern>/getAllReimbursements</url-pattern>

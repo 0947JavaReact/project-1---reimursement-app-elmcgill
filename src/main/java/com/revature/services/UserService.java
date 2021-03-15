@@ -69,4 +69,10 @@ public class UserService {
 		
 		return toLogin;
 	}
+	
+	public User getUserById(int id) {
+		
+		return uDao.getUserById(id);
+		
+	}
 }

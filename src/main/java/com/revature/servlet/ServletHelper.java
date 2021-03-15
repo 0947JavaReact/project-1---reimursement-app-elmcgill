@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.revature.controllers.GetUserController;
 import com.revature.controllers.LoginController;
 import com.revature.controllers.LogoutController;
 import com.revature.controllers.RegisterController;
@@ -28,6 +29,9 @@ public class ServletHelper {
 			break;
 		case "/project1/getSession":
 			SessionController.getSession(req,res);
+			break;
+		case "/project1/getUser":
+			GetUserController.getUser(req, res);
 			break;
 		case "/project1/logout":
 			LogoutController.doLogout(req, res);
