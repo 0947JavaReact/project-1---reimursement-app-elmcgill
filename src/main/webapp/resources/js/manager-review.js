@@ -118,7 +118,7 @@ async function getPendingReimbursements(){
 		let subDate = row.insertCell(4);
 		subDate.innerHTML = new Date(obj.reSubmitted).toDateString();
 		let appDen = row.insertCell(5);
-		appDen.innerHTML = `<button onclick="approve(${obj.reId})">Approve</button> <button onclick="deny(${obj.reId})">Deny</button>`;
+		appDen.innerHTML = `<button onclick="approve(${obj.reId})" id="appr">Approve</button> <button onclick="deny(${obj.reId})" id="deny">Deny</button>`;
 		let descRow = table.insertRow(index++);
 		let desc = descRow.insertCell(0);
 		desc.setAttribute("colspan", "6");

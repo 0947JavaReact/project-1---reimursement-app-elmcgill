@@ -170,6 +170,10 @@ var retreiveAllReimbursements = async () => {
 let init = async () => {
 	await verifyLoggedIn();
 	console.log(userId);
+	let res = await fetch(`http://localhost:8080/project1/getUser?userid=${userId}`);
+	let user = await res.json();
+	let username = user.username;
+	document.getElementById("welcome").innerText = `Welcome ${username}!`;
 	let rows = await retreiveAllReimbursements();
 	populateTable(rows);
 }

@@ -1,8 +1,11 @@
 @charset "ISO-8859-1";
 
-body {
+body{
+	
 	margin: 0;
 	font-family: 'Roboto', sans-serif;
+	background-color: #0A0A0A;
+	
 }
 
 .register-container {
@@ -18,10 +21,12 @@ body {
 .register-container>h1 {
 	font-weight: 500;
 	margin-bottom: 20px;
+	color: #EBEBEB;
 }
 
-.register-container>form>h5 {
+.register-container>form>h4 {
 	margin-bottom: 5px;
+	color: #EBEBEB;
 }
 
 .in {
@@ -31,19 +36,28 @@ body {
 	width: 98%;
 }
 
-.register-container>p {
+.register-container>form>p {
 	margin-top: 15px;
 	font-size: 12px;
+	color: #EBEBEB;
+	text-align: center;
+}
+
+label{
+	
+	color: #EBEBEB;
+	
 }
 
 .register-btn {
-	background: #ff8000;
+	background: #892CDC;
 	border-radius: 2px;
 	width: 100%;
 	height: 30px;
 	border: 1px solid;
 	margin-top: 10px;
-	border-color: #a88734 #9c7e31 #846a29;
+	border-color: #52057b;
+	color: #D6D6D6;
 }
 
 .login-btn {
@@ -52,7 +66,9 @@ body {
 	height: 30px;
 	border: 1px solid;
 	margin-top: 10px;
-	border-color: lightgray;
+	background: #892CDC;
+	border-color: #52057b;
+	color: #D6D6D6;
 }
 
 .container {
@@ -64,4 +80,16 @@ body {
 
 #register {
 	text-align: center;
+}
+
+.login-btn:hover{
+	
+	cursor:pointer;
+	
+}
+
+.register-btn:hover{
+	
+	cursor:pointer;
+	
 }

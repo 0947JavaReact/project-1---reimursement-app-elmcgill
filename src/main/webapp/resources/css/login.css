@@ -1,22 +1,32 @@
 @charset "ISO-8859-1";
 
+body{
+	
+	margin: 0;
+	font-family: 'Roboto', sans-serif;
+	background-color: #0A0A0A;
+	
+}
+
 .login_container {
 	width: 33%;
 	height: fit-content;
 	display: flex;
 	flex-direction: column;
 	border-radius: 5px;
-	border: 1px solid lightgray;
+	border: 1px solid #1f1f1f;
 	padding: 20px;
 }
 
 .login_container>h1 {
 	font-weight: 500;
 	margin-bottom: 20px;
+	color: #EBEBEB;
 }
 
 .login_container>form>h5 {
 	margin-bottom: 5px;
+	color: #EBEBEB;
 }
 
 .login_container>form>input {
@@ -29,16 +39,18 @@
 .login_container>p {
 	margin-top: 15px;
 	font-size: 12px;
+	color: #D6D6D6;
 }
 
 .login_signinButton {
-	background: #ff8000;
+	background:#892CDC;
 	border-radius: 2px;
 	width: 100%;
 	height: 30px;
 	border: 1px solid;
 	margin-top: 10px;
-	border-color: #a88734 #9c7e31 #846a29;
+	border-color: #1f1f1f;
+	color: #D6D6D6;
 }
 
 .login_registerButton {
@@ -47,7 +59,9 @@
 	height: 30px;
 	border: 1px solid;
 	margin-top: 10px;
-	border-color: lightgray;
+	border-color: #1f1f1f;
+	background: #892CDC;
+	color: #D6D6D6;
 }
 
 .container {
@@ -59,4 +73,17 @@
 
 #register {
 	text-align: center;
+	color: #D6D6D6;
+}
+
+.login_signinButton:hover{
+	
+	cursor: pointer;
+	
+}
+
+.login_registerButton:hover{
+	
+	cursor: pointer;
+	
 }
