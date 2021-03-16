@@ -1,52 +1,51 @@
-/**
- * 
- */
+/*
+Function that handles login
+Checks to make sure the form has user data before making a call to the database
+Makes a call to the database, and gets back user information if they user exists
+The users id is stored in session for use later
+*/
+const login = async (e) => {
+	e.preventDefault();
+	let uname = document.getElementById('username').value;
+	let pass = document.getElementById('password').value;
+	document.getElementById('login-form').reset();
+	if (uname.length < 1 || pass.length < 1) {
+		alert("You must input an username and password.");
+		return;
+	}
 
-document.getElementById("submit").addEventListener("click", function(event){
-	event.preventDefault();
-	let uname = document.getElementById("username").value;
-	let pass = document.getElementById("password").value;
-	
-	console.log(`Username: ${uname}, Password: ${pass}`);
-	
 	let uObj = {
 		username: uname,
-		password: pass	
-	}
-	
-	//Do the request here
-	fetch('http://localhost:8080/project1/login', {
+		password: pass,
+	};
+
+	let req = await fetch('http://localhost:8080/project1/login', {
 		method: 'POST',
 		headers: {
-      		'Content-Type': 'application/json'
-    	},
-    	body: JSON.stringify(uObj)
-	})
-	.then((res) => {
-		if(res.status == 200){
-			return res.json();
-		}
-		else{
-			alert("Username or password is incorrect!");
-		}
-	})
-	.then((res)=>{
-		
-		//Reset the form
-		document.getElementById("login-form").reset();
-		if(res.userType == 0){
-			location.href = "../html/employee-dashboard.html";
-		}
-		else{
-			location.href = "../html/manager-dashboard.html";
-		}
-		
-		console.log(res);
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(uObj),
 	});
-	
-	
-});
 
-document.getElementById("register-redir").addEventListener("click", (event) => {
-	location.href = "../html/registration.html";
+	if (req.status !== 200) {
+		alert("Username or password are incorrect");
+		return;
+	}
+	else {
+		let res = await req.json();
+		if (res.userType == 0) {
+			location.href = '../html/employee-dashboard.html';
+		} else {
+			location.href = '../html/manager-dashboard.html';
+		}
+	}
+
+}
+
+//Setting the event listener for the login button
+document.getElementById('submit').addEventListener('click', login);
+
+//Setting the event listener for the register redirect button
+document.getElementById('register-redir').addEventListener('click', (event) => {
+	location.href = '../html/registration.html';
 });
