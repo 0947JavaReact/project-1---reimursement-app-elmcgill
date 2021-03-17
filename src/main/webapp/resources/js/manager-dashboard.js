@@ -1,24 +1,8 @@
-window.onbeforeunload = () => {
-	console.log('before unload');
-	fetch('http://localhost:8080/project1/getSession');
-}
+/* User verification and logout functions / variables */
 
-document.getElementById("logout").addEventListener('click', logout);
+let userid;
 
-document.getElementById("review").addEventListener('click', () => {
-	location.href = "../html/manager-review.html";
-});
-
-let userId;
-
-function logout(){
-	fetch('http://localhost:8080/project1/logout')
-	.then(() => {
-		location.href = "../html/index.html";
-	});
-}
-
-async function verifyLoggedIn(){
+let verifyLoggedIn = async () => {
 	let res = await fetch('http://localhost:8080/project1/getSession');
 	let obj = await res.json();
 	
@@ -30,40 +14,19 @@ async function verifyLoggedIn(){
 	}
 }
 
-async function approve(id) {
-	
-	console.log(`Approved this reimbursement ${id}`);
-	
-	let date = Date.now();
-	
-	obj = {
-		userid : userId,
-		reid : id,
-		date: date
-	}
-	
-	console.log(date);
-	
-	let res = await fetch(`http://localhost:8080/project1/approveReimbursement`,
-	{
-		method: 'POST',
-		headers: {
-      		'Content-Type': 'application/json'
-    	},
-    	body: JSON.stringify(obj)
-	});
-	
-	await getPendingReimbursements();
-	
-}
+document.getElementById("logout").addEventListener('click', async () => {
+	let res = await fetch('http://localhost:8080/project1/logout');
+	userId = -1;
+	verifyLoggedIn();
+});
 
-async function deny(id){
-	
-	console.log(`Deny this reimbursement ${id}`);
-	
-}
+document.getElementById("review").addEventListener('click', () => {
+	location.href = "../html/manager-review.html";
+});
 
-function populateTable(obj){
+/* Reimbursement functions */
+
+let populateTable = (obj) => {
 	
 	let table = document.getElementById("re-table");
 	
@@ -113,38 +76,6 @@ function populateTable(obj){
 		desc.innerHTML = `<h3>Description:</h3><p>${obj.reDesc}</p>`;
 		
 	});
-	
-/*
-	for(let i=0; i<obj.length; i++){
-		console.log(i);
-		let row = table.insertRow(i+1);
-		let status = row.insertCell(0);
-		status.innerHTML = obj[i].statusString;
-		let type = row.insertCell(1);
-		type.innerHTML = obj[i].typeString;
-		let amount = row.insertCell(2);
-		amount.innerHTML = obj[i].reAmount;
-		let subDate = row.insertCell(3);
-		subDate.innerHTML = new Date(obj[i].reSubmitted).toDateString();
-		let resDate = row.insertCell(4);
-		
-		if(obj[i].reResolved !== null){
-			resDate.innerHTML = new Date(obj[i].reResolved).toDateString();
-		}
-		else{
-			resDate.innerHTML = 'N/A';
-		}
-		
-		let resolver = row.insertCell(5);
-		if(obj[i].resolverString !== null){
-			resolver.innerHTML = obj[i].resolverString;
-		}
-		else{
-			resolver.innerHTML = 'N/A';
-		}
-	}
-	*/
-	
 }
 
 document.getElementById("filter").addEventListener('click', async () => {
@@ -161,15 +92,16 @@ document.getElementById("filter").addEventListener('click', async () => {
 	}
 });
 
-var retreiveAllReimbursements = async () => {
+let retreiveAllReimbursements = async () => {
 	let res = await fetch(`http://localhost:8080/project1/getAllReimbursements`);
 	let obj = await res.json();
 	return obj;
 }
 
+/*After login initalize the table */
+
 let init = async () => {
 	await verifyLoggedIn();
-	console.log(userId);
 	let res = await fetch(`http://localhost:8080/project1/getUser?userid=${userId}`);
 	let user = await res.json();
 	let username = user.username;

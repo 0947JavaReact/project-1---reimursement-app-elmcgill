@@ -2,7 +2,7 @@
 
 let userId;
 
-async function verifyLoggedIn() {
+let verifyLoggedIn = async() => {
 	let res = await fetch('http://localhost:8080/project1/getSession');
 	let obj = await res.json();
 
