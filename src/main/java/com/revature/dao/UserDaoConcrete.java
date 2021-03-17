@@ -257,6 +257,7 @@ public class UserDaoConcrete implements UserDao{
 					u.setUserRoleAsString("MANAGER");
 				}
 				uList.add(u);
+				con.setAutoCommit(true);
 			}
 			
 		} catch (SQLException e) {

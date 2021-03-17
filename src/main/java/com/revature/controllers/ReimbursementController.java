@@ -30,7 +30,9 @@ public class ReimbursementController {
 		int param1 = Integer.parseInt(req.getParameter("id"));
 
 		ArrayList<Reimbursement> rList = rServ.getAllReimbursements();
-
+		
+		System.out.println(rList);
+		
 		ArrayList<Reimbursement> retList = new ArrayList<>();
 
 		for (int i = 0; i < rList.size(); i++) {
@@ -93,7 +95,7 @@ public class ReimbursementController {
 		String desc = parsedObj.get("desc").asText();
 		int author = Integer.parseInt(parsedObj.get("author").asText());
 
-		rServ.sumbitNewReimbursement(amount, submitted, type, desc, author);
+		System.out.println(rServ.sumbitNewReimbursement(amount, submitted, type, desc, author));
 
 		ObjectNode ret = mapper.createObjectNode();
 		ret.put("message", "successfully submitted a new reimbursement");

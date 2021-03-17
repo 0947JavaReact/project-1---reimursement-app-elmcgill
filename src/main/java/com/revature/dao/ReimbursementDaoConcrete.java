@@ -198,6 +198,7 @@ public class ReimbursementDaoConcrete implements ReimbursementDao {
 				r.setTypeString(rs.getString(10));
 
 				rList.add(r);
+				con.setAutoCommit(true);
 			}
 
 			return rList;
