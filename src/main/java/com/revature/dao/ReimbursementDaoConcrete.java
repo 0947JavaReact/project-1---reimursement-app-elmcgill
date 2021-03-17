@@ -42,6 +42,7 @@ public class ReimbursementDaoConcrete implements ReimbursementDao {
 			cs.setInt(9, r.getReType().ordinal());
 
 			cs.execute();
+			System.out.println("Executed");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
