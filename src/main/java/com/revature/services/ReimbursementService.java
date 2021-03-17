@@ -56,6 +56,9 @@ public class ReimbursementService {
 		
 		Logging.logger.info("Manager: " + id + " denied the reimbursement: " + r.getReId());
 		
+		System.out.println("In deny service");
+		System.out.println(r);
+		
 		return rDao.updateReimbursement(r, r.getReId());
 
 	}

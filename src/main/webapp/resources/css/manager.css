@@ -50,7 +50,8 @@ tr:nth-child(odd) {
 }
 
 #filter {
-	margin-bottom: 1rem; padding : 15px 32px;
+	margin-bottom: 1rem;
+	padding: 15px 32px;
 	border: none;
 	background-color: #892CDC;
 	color: #D6D6D6;
@@ -89,6 +90,13 @@ select:active, select:hover {
 	text-decoration: none;
 	display: inline-block;
 	font-size: 16px;
+	transform: scale(1);
+}
+
+#appr:hover {
+	transform: scale(1.1) perspective(1px);
+	box-shadow: 0px 1px 0px 0px;
+	cursor: pointer;
 }
 
 #deny {
@@ -101,4 +109,10 @@ select:active, select:hover {
 	text-decoration: none;
 	display: inline-block;
 	font-size: 16px;
+}
+
+#deny:hover {
+	transform: scale(1.1) perspective(1px);
+	box-shadow: 0px 1px 0px 0px;
+	cursor: pointer;
 }

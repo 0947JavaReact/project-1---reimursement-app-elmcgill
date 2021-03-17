@@ -48,7 +48,7 @@ let populateTable = (obj) => {
 		author.innerHTML = obj.authorString;
 		
 		let amount = row.insertCell(3);
-		amount.innerHTML = obj.reAmount;
+		amount.innerHTML = Number (obj.reAmount).toFixed(2);
 		
 		let subDate = row.insertCell(4);
 		subDate.innerHTML = new Date(obj.reSubmitted).toDateString();

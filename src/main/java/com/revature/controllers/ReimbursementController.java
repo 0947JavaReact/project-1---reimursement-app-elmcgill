@@ -178,7 +178,7 @@ public class ReimbursementController {
 		JsonNode parsedObj = mapper.readTree(data);
 
 		int userId = Integer.parseInt(parsedObj.get("userid").asText());
-		int reId = Integer.parseInt(parsedObj.get("reId").asText());
+		int reId = Integer.parseInt(parsedObj.get("reid").asText());
 		Date resolved = new Date(Long.parseLong(parsedObj.get("date").asText()));
 
 		Reimbursement r = rServ.getReimbursementById(reId);
