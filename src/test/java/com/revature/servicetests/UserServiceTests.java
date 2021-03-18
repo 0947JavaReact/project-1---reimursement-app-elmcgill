@@ -1,10 +1,10 @@
 package com.revature.servicetests;
 
-import static org.hamcrest.CoreMatchers.any;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.any;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -38,7 +38,7 @@ public class UserServiceTests {
 	@Test
 	public void testValidLogin() {
 
-		User u1 = new User(1, "test", "password", "jdbctest", "user", "testemail@gmail.com", UserType.EMPLOYEE, null);
+		User u1 = new User(1, "test", "$2a$12$bTSdopUOmgCX/54YX70ZF.qW0.xHLJ6T1x4W/E/IfDJPzUlhYL1IK", "jdbctest", "user", "testemail@gmail.com", UserType.EMPLOYEE, null);
 
 		when(uDao.getUserByUserName(anyString())).thenReturn(u1);
 
@@ -50,7 +50,10 @@ public class UserServiceTests {
 
 	@Test(expected = InvalidCredentialsException.class)
 	public void testBadUserNameLogin() {
-		when(uDao.getUserByUserName(anyString())).thenReturn(null);
+		
+		User bad = new User(-1, "test", "password", "jdbctest", "user", "testemail@gmail.com", UserType.EMPLOYEE, null);
+		
+		when(uDao.getUserByUserName(anyString())).thenReturn(bad);
 
 		User loggedIn = uServ.loginUser("test", "password");
 	}
@@ -58,7 +61,7 @@ public class UserServiceTests {
 	@Test(expected = InvalidCredentialsException.class)
 	public void testBadPasswordLogin() {
 
-		User u1 = new User(1, "test", "password", "jdbctest", "user", "testemail@gmail.com", UserType.EMPLOYEE, null);
+		User u1 = new User(1, "test", "$2a$12$bTSdopUOmgCX/54YX70ZF.qW0.xHLJ6T1x4W/E/IfDJPzUlhYL1Ir", "jdbctest", "user", "testemail@gmail.com", UserType.EMPLOYEE, null);
 
 		when(uDao.getUserByUserName(anyString())).thenReturn(u1);
 
@@ -69,10 +72,11 @@ public class UserServiceTests {
 	public void testValidRegistration() {
 
 		User u1 = new User(1, "test", "password", "jdbctest", "user", "testemail@gmail.com", UserType.EMPLOYEE, null);
+		User not = new User(-1, "test", "password", "jdbctest", "user", "testemail1@gmail.com", UserType.EMPLOYEE, null);
 
-		when(uDao.addUser(u1)).thenReturn(true);
-		when(uDao.getUserByUserName("jdbctest")).thenReturn(null);
-		when(uDao.getUserByEmail("testemail@gmail.com")).thenReturn(null);
+		when(uDao.addUser(any())).thenReturn(true);
+		when(uDao.getUserByUserName("test")).thenReturn(not);
+		when(uDao.getUserByEmail("testemail@gmail.com")).thenReturn(not);
 
 		boolean registered = uServ.registerUser("test", "testemail@gmail.com", "password", UserType.EMPLOYEE);
 
@@ -95,8 +99,9 @@ public class UserServiceTests {
 	public void testEmailAlreadyExists() {
 
 		User u1 = new User(1, "test", "password", "jdbctest", "user", "testemail@gmail.com", UserType.EMPLOYEE, null);
-
-		when(uDao.getUserByUserName("test")).thenReturn(null);
+		User not = new User(-1, "test", "password", "jdbctest", "user", "testemail1@gmail.com", UserType.EMPLOYEE, null);
+		
+		when(uDao.getUserByUserName("test")).thenReturn(not);
 		when(uDao.getUserByEmail("testemail@gmail.com")).thenReturn(u1);
 
 		boolean registered = uServ.registerUser("test", "testemail@gmail.com", "password", UserType.EMPLOYEE);

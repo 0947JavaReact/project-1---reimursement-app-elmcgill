@@ -12,6 +12,7 @@ import com.revature.models.ReimbursementType;
 import com.revature.models.User;
 import com.revature.models.UserType;
 import com.revature.services.ReimbursementService;
+import com.revature.services.UserService;
 
 public class ProjectDriver {
 
@@ -23,17 +24,11 @@ public class ProjectDriver {
 		
 		UserDao uDao = new UserDaoConcrete();
 		
-		ReimbursementDao rDao = new ReimbursementDaoConcrete();
-		ReimbursementService rServ = new ReimbursementService(rDao);
+		UserService uServ = new UserService(uDao);
 		
-		//rServ.sumbitNewReimbursement(100, new Date(1612802770000l), ReimbursementType.FOOD, "desc", 932027899);
-		
-		
-		//rDao.addReimbursement(r1);
-		
-		System.out.println(rDao.getReimbursementsByEmployee(932027899));
-		System.out.println(rServ.getAllReimbursementsById(932027899));
-		
+		//uServ.registerUser("hashtest", "hashTest@email.com", "password", UserType.EMPLOYEE);
+		User loggedIn = uServ.loginUser("hashtest", "password");
+		System.out.println(loggedIn);
 	}
 	
 }

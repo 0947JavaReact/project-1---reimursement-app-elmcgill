@@ -2,6 +2,8 @@ package com.revature.services;
 
 import java.util.UUID;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.revature.dao.UserDao;
 import com.revature.exceptions.EmailAlreadyExistsException;
 import com.revature.exceptions.InvalidCredentialsException;
@@ -23,6 +25,24 @@ public class UserService {
 		this.uDao = uDao;
 	}
 	
+	private String hashPassword(String password_plaintext) {
+		String salt = BCrypt.gensalt(12);
+		String hashed_password = BCrypt.hashpw(password_plaintext, salt);
+
+		return(hashed_password);
+	}
+	
+	private boolean checkPassword(String password_plaintext, String stored_hash) {
+		boolean password_verified = false;
+
+		if(null == stored_hash || !stored_hash.startsWith("$2a$"))
+			throw new java.lang.IllegalArgumentException("Invalid hash provided for comparison");
+
+		password_verified = BCrypt.checkpw(password_plaintext, stored_hash);
+
+		return(password_verified);
+	}
+	
 	//Register a new user, returns true or false if the use was created in the db
 	public boolean registerUser(String username, String email, String password, UserType type) {
 		
@@ -37,12 +57,12 @@ public class UserService {
 		else {
 			
 			User u = new User();
-			String id = UUID.randomUUID().toString();       
+			String id = UUID.randomUUID().toString();
 	        int uid = Math.abs(id.hashCode());
 			u.setUserId(uid);
 			u.setUsername(username);
 			u.setEmail(email);
-			u.setPassword(password);
+			u.setPassword(hashPassword(password));
 			u.setRole(type);
 			
 			Logging.logger.info("User: " + username + " successfully created an account.");
@@ -55,17 +75,19 @@ public class UserService {
 		
 		User toLogin = uDao.getUserByUserName(username);
 		
-		System.out.println(toLogin);
+		//System.out.println(toLogin);
 		
 		if(toLogin.getUserId() == -1) {
 			Logging.logger.warn("User attempted to login with invalid credentials.");
 			throw new InvalidCredentialsException("Your username or password are incorrect");
 		}
 		
-		if(!toLogin.getPassword().equals(password)) {
+		if(!checkPassword(password, toLogin.getPassword())) {
 			Logging.logger.warn("User attempted to login with invalid credentials.");
 			throw new InvalidCredentialsException("Your username or password are incorrect");
 		}
+		
+		//System.out.println(toLogin);
 		
 		return toLogin;
 	}

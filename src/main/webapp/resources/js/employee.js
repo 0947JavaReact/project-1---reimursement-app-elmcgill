@@ -14,6 +14,10 @@ let verifyLoggedIn = async() => {
 	}
 }
 
+document.getElementById("detailed").addEventListener('click', () => {
+	location.href = "../html/employee-detailed.html";
+});
+
 document.getElementById("logout").addEventListener('click', async () => {
 	let res = await fetch('http://localhost:8080/project1/logout');
 	userId = -1;
