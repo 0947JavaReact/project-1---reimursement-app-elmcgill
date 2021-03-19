@@ -2,6 +2,7 @@
 
 let userId;
 
+
 let verifyLoggedIn = async() => {
 	let res = await fetch('http://localhost:8080/project1/getSession');
 	let obj = await res.json();
@@ -41,6 +42,7 @@ document.getElementById("new-ticket").addEventListener('click', () => {
 let retreiveAllReimbursements = async () => {
 	let res = await fetch(`http://localhost:8080/project1/getAllReimbursementsById?id=${userId}`);
 	let obj = await res.json();
+
 	console.log(obj);
 	return obj;
 }
@@ -50,6 +52,7 @@ let populateTable = (objList) => {
 	let table = document.getElementById("re-table");
 
 	table.innerHTML = '<tr><th>STATUS</th><th>TYPE</th><th>AMOUNT</th><th>SUBMITTED DATE</th><th>RESOLVED DATE</th><th>RESOLVED BY</th></tr>';
+
 
 	objList.forEach((obj) =>{
 		let index = 1;
@@ -83,9 +86,11 @@ else {
 	});
 }
 
+
 let submitTicket = async (e) => {
 	e.preventDefault();
 	
+
 	let amount = document.getElementById("amount").value;
 	let date = document.getElementById("date").value;
 	let type = document.getElementById("types").value;
@@ -133,6 +138,7 @@ let submitTicket = async (e) => {
 document.getElementById("send").addEventListener('click', submitTicket);
 
 /* Make all the calls needed to populate the page */
+
 
 let init = async () => {
 	await verifyLoggedIn();

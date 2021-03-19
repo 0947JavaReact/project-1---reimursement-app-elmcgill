@@ -29,6 +29,17 @@ public class ProjectDriver {
 		//uServ.registerUser("hashtest", "hashTest@email.com", "password", UserType.EMPLOYEE);
 		User loggedIn = uServ.loginUser("hashtest", "password");
 		System.out.println(loggedIn);
+		//uDao.addUser(u);
+		
+		Reimbursement r2 = new Reimbursement(2, 200.0d, new Date(1612802770000l), new Date(1615221970000l),
+				"This is a test 2", 932027899, 193485667, ReimbursementStatus.APPROVED, ReimbursementType.LODGING, null, null, null, null);
+		
+		ReimbursementDao rDao = new ReimbursementDaoConcrete();
+		
+		System.out.println(rDao.addReimbursement(r2));
+		
+		ReimbursementService rServ = new ReimbursementService(rDao);
+		System.out.println(rServ.sumbitNewReimbursement(100, new Date(1612802770000l), ReimbursementType.FOOD, "Desc", 932027899));
 	}
 	
 }

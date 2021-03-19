@@ -8,3 +8,4 @@
 2021-03-13 15:45:24 INFO  Logging:91 - A user requested a filted list of reimbursements
 2021-03-13 15:45:47 INFO  Logging:91 - A user requested a filted list of reimbursements
 2021-03-13 15:46:02 INFO  Logging:91 - A user requested a filted list of reimbursements
+2021-03-16 20:02:24 INFO  Logging:77 - User: 932027899 submitted a new reimbursement tiecket

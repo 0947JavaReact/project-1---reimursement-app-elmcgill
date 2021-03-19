@@ -82,7 +82,13 @@ public class ReimbursementService {
 		
 		Logging.logger.info("User: " + userid + " submitted a new reimbursement tiecket");
 		
-		return rDao.addReimbursement(r);
+		System.out.println(r);
+		
+		boolean added = rDao.addReimbursement(r);
+		
+		System.out.println(added);
+		
+		return added;
 		
 	}
 	
