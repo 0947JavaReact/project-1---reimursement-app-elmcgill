@@ -47,16 +47,13 @@ let populateTable = (obj) => {
 		let type = row.insertCell(2);
 		type.innerHTML = obj.typeString;
 
-		let author = row.insertCell(3);
-		author.innerHTML = obj.authorString;
-
-		let amount = row.insertCell(4);
+		let amount = row.insertCell(3);
 		amount.innerHTML = Number(obj.reAmount).toFixed(2);
 
-		let subDate = row.insertCell(5);
+		let subDate = row.insertCell(4);
 		subDate.innerHTML = new Date(obj.reSubmitted).toDateString();
 
-		let resDate = row.insertCell(6);
+		let resDate = row.insertCell(5);
 		if (obj.reResolved !== null) {
 			resDate.innerHTML = new Date(obj.reResolved).toDateString();
 		}
@@ -64,7 +61,7 @@ let populateTable = (obj) => {
 			resDate.innerHTML = 'N/A';
 		}
 
-		let resolver = row.insertCell(7);
+		let resolver = row.insertCell(6);
 		if (obj.resolverString !== null) {
 			resolver.innerHTML = obj.resolverString;
 		}
@@ -74,7 +71,7 @@ let populateTable = (obj) => {
 
 		let descRow = table.insertRow(index++);
 		let desc = descRow.insertCell(0);
-		desc.setAttribute("colspan", "8");
+		desc.setAttribute("colspan", "7");
 		desc.className = "desc";
 		desc.innerHTML = `<h3>Description:</h3><p>${obj.reDesc}</p>`;
 
@@ -85,9 +82,23 @@ document.getElementById("filter").addEventListener('click', async () => {
 	let status = document.getElementById("status").value;
 	console.log(status);
 	if(status<3){
-		let res = await fetch(`http://localhost:8080/project1/filterReimbursements?status=${status}`);
+		let res = await fetch(`http://localhost:8080/project1/getAllReimbursementsById?id=${userId}`);
 		let obj = await res.json();
-		populateTable(obj);
+		console.log(obj);
+		if(status == 0){
+			const result = obj.filter(reimb => reimb.statusString === 'PENDING');
+			console.log(result);
+			populateTable(result);
+		}else if(status == 1){
+			const result = obj.filter(reimb => reimb.statusString === 'APPROVED');
+			console.log(result);
+			populateTable(result);
+		}
+		else{
+			const result = obj.filter(reimb => reimb.statusString === 'DENIED');
+			console.log(result);
+			populateTable(result);
+		}
 	}
 	else{
 		let obj = await retreiveAllReimbursements();
@@ -96,7 +107,7 @@ document.getElementById("filter").addEventListener('click', async () => {
 });
 
 let retreiveAllReimbursements = async () => {
-	let res = await fetch(`http://localhost:8080/project1/getAllReimbursements`);
+	let res = await fetch(`http://localhost:8080/project1/getAllReimbursementsById?id=${userId}`);
 	let obj = await res.json();
 	return obj;
 }

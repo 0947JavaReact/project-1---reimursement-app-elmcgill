@@ -96,6 +96,11 @@ let submitTicket = async (e) => {
 		document.getElementById("re-form").reset();
 		return;
 	}
+	else if(amount<=0){
+		alert("You must enter a positive amount to be reimbursed!");
+		document.getElementById("re-form").reset();
+		return;
+	}
 	else {
 		let d = Date.parse(date);
 		console.log(d);

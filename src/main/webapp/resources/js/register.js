@@ -42,7 +42,7 @@ document.getElementById("submit").addEventListener("click", async (event) => {
 		if (res.status !== 200) {
 			let message = await res.json();
 			alert(message.message);
-			document.getElementById("reg-form").reset();
+			//document.getElementById("reg-form").reset();
 		}
 		else {
 			let message = await res.json();
