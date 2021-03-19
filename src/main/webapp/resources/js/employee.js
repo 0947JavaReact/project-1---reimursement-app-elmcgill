@@ -1,70 +1,9 @@
-/**
- * 
- */
-window.onbeforeunload = async () => {
-	fetch('http://localhost:8080/project1/getSession');
-}
-
-document.getElementById("new-ticket").addEventListener('click', showForm);
-
-document.getElementById("logout").addEventListener('click', logout);
+/* User Verification / Logout Functions and variables */
 
 let userId;
 
-function logout() {
-	fetch('http://localhost:8080/project1/logout')
-		.then(() => {
-			location.href = "../html/index.html";
-		});
-}
 
-function showForm() {
-
-	document.getElementById("new-reimbursement").style.display = "flex";
-
-}
-
-
-var retreiveAllReimbursements = async () => {
-	let res = await fetch(`http://localhost:8080/project1/getAllReimbursementsById?id=${userId}`);
-	let obj = await res.json();
-
-
-
-	let table = document.getElementById("re-table");
-
-	table.innerHTML = '<tr><th>STATUS</th><th>TYPE</th><th>AMOUNT</th><th>SUBMITTED DATE</th><th>RESOLVED DATE</th><th>RESOLVED BY</th></tr>';
-
-	for (let i = 0; i < obj.length; i++) {
-		let row = table.insertRow(i + 1);
-		let status = row.insertCell(0);
-		status.innerHTML = obj[i].statusString;
-		let type = row.insertCell(1);
-		type.innerHTML = obj[i].typeString;
-		let amount = row.insertCell(2);
-		amount.innerHTML = obj[i].reAmount;
-		let subDate = row.insertCell(3);
-		subDate.innerHTML = new Date(obj[i].reSubmitted).toDateString();
-		let resDate = row.insertCell(4);
-
-		if (obj[i].reResolved !== null) {
-			resDate.innerHTML = new Date(obj[i].reResolved).toDateString();
-		}
-		else {
-			resDate.innerHTML = 'N/A';
-		}
-
-		let resolver = row.insertCell(5);
-		if (obj[i].resolverString !== null) {
-			resolver.innerHTML = obj[i].resolverString;
-		}
-		else {
-			resolver.innerHTML = 'N/A';
-		}
-	}
-}
-
-async function verifyLoggedIn() {
+let verifyLoggedIn = async() => {
 	let res = await fetch('http://localhost:8080/project1/getSession');
 	let obj = await res.json();
 
@@ -76,42 +15,130 @@ async function verifyLoggedIn() {
 	}
 }
 
+document.getElementById("detailed").addEventListener('click', () => {
+	location.href = "../html/employee-detailed.html";
+});
 
-document.getElementById("send").addEventListener('click', async (event) => {
+document.getElementById("logout").addEventListener('click', async () => {
+	let res = await fetch('http://localhost:8080/project1/logout');
+	userId = -1;
+	verifyLoggedIn();
+});
 
-	event.preventDefault();
+/*
+When the Submit New reimbursement button is clicked, it will either
+hide of show the form
+*/
+document.getElementById("new-ticket").addEventListener('click', () => {
+	if (document.getElementById("new-reimbursement").style.display === "flex") {
+		document.getElementById("new-reimbursement").style.display = "none";
+	} else{
+		document.getElementById("new-reimbursement").style.display = "flex";
+	}
+});
+
+/* Fetching Reimbursements and Dom manipulation functions */
+
+let retreiveAllReimbursements = async () => {
+	let res = await fetch(`http://localhost:8080/project1/getAllReimbursementsById?id=${userId}`);
+	let obj = await res.json();
+
+	console.log(obj);
+	return obj;
+}
+
+let populateTable = (objList) => {
+
+	let table = document.getElementById("re-table");
+
+	table.innerHTML = '<tr><th>STATUS</th><th>TYPE</th><th>AMOUNT</th><th>SUBMITTED DATE</th><th>RESOLVED DATE</th><th>RESOLVED BY</th></tr>';
+
+
+	objList.forEach((obj) =>{
+		let index = 1;
+		let row=table.insertRow(index++);
+		row.id = obj.reId;
+
+		let status = row.insertCell(0);
+		status.innerHTML = obj.statusString;
+		let type = row.insertCell(1);
+		type.innerHTML = obj.typeString;
+		let amount = row.insertCell(2);
+		amount.innerHTML = Number (obj.reAmount).toFixed(2);
+		let subDate = row.insertCell(3);
+		subDate.innerHTML = new Date(obj.reSubmitted).toDateString();
+		let resDate = row.insertCell(4);
+
+		if(obj.reResolved !== null){
+		resDate.innerHTML = new Date(obj.reResolved).toDateString();
+	}
+		else {
+	resDate.innerHTML = 'N/A';
+}
+
+let resolver = row.insertCell(5);
+if (obj.resolverString !== null) {
+	resolver.innerHTML = obj.resolverString;
+}
+else {
+	resolver.innerHTML = 'N/A';
+}
+	});
+}
+
+
+let submitTicket = async (e) => {
+	e.preventDefault();
+	
 
 	let amount = document.getElementById("amount").value;
 	let date = document.getElementById("date").value;
 	let type = document.getElementById("types").value;
 	let desc = document.getElementById("desc").value;
+	
+	if (!amount || !date || !desc) {
+		alert("You must completely fill out the submission form!");
+		document.getElementById("re-form").reset();
+		return;
+	}
+	else if(amount<=0){
+		alert("You must enter a positive amount to be reimbursed!");
+		document.getElementById("re-form").reset();
+		return;
+	}
+	else {
+		let d = Date.parse(date);
+		console.log(d);
+		let obj = {
+			amount: amount,
+			date: Date.parse(date),
+			type: type,
+			desc: desc,
+			author: userId
+		};
 
-	let obj = {
-		amount: amount,
-		date: Date.parse(date),
-		type: type,
-		desc: desc,
-		author: userId
-	};
-
-	fetch('http://localhost:8080/project1/newReimbursement', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(obj)
-	}).then((res) => {
-		return res.json();
-	}).then((res) => {
-		console.log(res);
-
-
+		let req = await fetch('http://localhost:8080/project1/newReimbursement', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(obj)
+		});
+		
+		let res = await req.json();
+		
 		document.getElementById("re-form").reset();
 		document.getElementById("new-reimbursement").style.display = "none";
-	});
+		
+		let reimbursements = await retreiveAllReimbursements();
+		populateTable(reimbursements);
+	}
+}
 
-	//await retreiveAllReimbursements();
-});
+document.getElementById("send").addEventListener('click', submitTicket);
+
+/* Make all the calls needed to populate the page */
+
 
 let init = async () => {
 	await verifyLoggedIn();
@@ -120,7 +147,8 @@ let init = async () => {
 	let username = user.username;
 	document.getElementById("welcome").innerText = `Welcome ${username}!`;
 	document.getElementById("re-name").innerText = `${username}'s Past Reimbursements`;
-	await retreiveAllReimbursements();
+	let reimbursements = await retreiveAllReimbursements();
+	populateTable(reimbursements);
 }
 
 init();

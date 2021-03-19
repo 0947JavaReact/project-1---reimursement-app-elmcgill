@@ -56,14 +56,18 @@ public class ReimbursementService {
 		
 		Logging.logger.info("Manager: " + id + " denied the reimbursement: " + r.getReId());
 		
+		System.out.println("In deny service");
+		System.out.println(r);
+		
 		return rDao.updateReimbursement(r, r.getReId());
 
 	}
 	
 	public boolean sumbitNewReimbursement(double amount, Date date, ReimbursementType type, String desc, int userid) {
 		
+		System.out.println("In the submit ticket service");
 		Reimbursement r = new Reimbursement();
-		String id = UUID.randomUUID().toString();       
+		String id = UUID.randomUUID().toString();  
         int uid = Math.abs(id.hashCode());
         r.setReId(uid);
 		r.setReAmount(amount);
@@ -73,6 +77,8 @@ public class ReimbursementService {
 		r.setReDesc(desc);
 		r.setReStatus(ReimbursementStatus.PENDING);
 		r.setReType(type);
+		
+		System.out.println(r);
 		
 		Logging.logger.info("User: " + userid + " submitted a new reimbursement tiecket");
 		

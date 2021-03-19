@@ -4,35 +4,45 @@
 <meta charset="ISO-8859-1">
 <title>Project 1 - Expense Reimbursement</title>
 <link rel="stylesheet" href="../css/navbar.css">
-<link rel="stylesheet" href="../css/manager.css">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link
 	href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
 	rel="stylesheet">
+<link rel="stylesheet" href="../css/employee.css">
 </head>
 <body>
 	<div class="navbar">
 		<ul class="nav-items">
 			<li class="nav-item" id="home">Home</li>
-			<li class="nav-item" id="review">Review Tickets</li>
+			<li class="nav-item">Detailed View</li>
 			<li class="nav-item" id="logout">Logout</li>
 		</ul>
 	</div>
 	<div class="container">
+		<h2 id="welcome">Welcome #Placerholder#!</h2>
+
 		<div class="reimbursements">
-			<h3>Pending Reimbursements</h3>
+			<h3 id="re-name">#Placeholders# Reimbursements</h3>
+			<button id="filter">Filter Reimbursements by Status</button>
+			<select name="status" id="status">
+				<option value=0>PENDING</option>
+				<option value=1>APPROVED</option>
+				<option value=2>DENIED</option>
+				<option value=3>SHOW ALL</option>
+			</select>
 			<table id="re-table" class="reimbursement-table">
 				<tr>
+					<th>TICKET ID</th>
 					<th>STATUS</th>
 					<th>TYPE</th>
 					<th>AMOUNT</th>
-					<th>EMPLOYEE</th>
 					<th>SUBMITTED DATE</th>
-					<th>APPROVE/DENY</th>
+					<th>RESOLVED DATE</th>
+					<th>RESOLVED BY</th>
 				</tr>
 			</table>
 		</div>
 	</div>
-	<script src="../js/manager-review.js"></script>
+	<script src="../js/employee-detailed.js"></script>
 </body>
 </html>

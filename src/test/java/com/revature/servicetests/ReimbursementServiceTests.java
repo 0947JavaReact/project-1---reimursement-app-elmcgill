@@ -1,10 +1,10 @@
 package com.revature.servicetests;
 
-import static org.hamcrest.CoreMatchers.any;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.any;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -117,9 +117,7 @@ public class ReimbursementServiceTests {
 	@Test
 	public void testSubmitNewReimbursement() {
 		
-		
-		
-		when(rDao.addReimbursement((Reimbursement) any(Class.class))).thenReturn(true);
+		doReturn(true).when(rDao).addReimbursement(any());
 		
 		boolean saved = rServ.sumbitNewReimbursement(0, new Date(1615670941039l), ReimbursementType.OTHER, "Description", 1);
 		

@@ -75,7 +75,9 @@ public class ReimbursementController {
 		JsonNode parsedObj = mapper.readTree(data);
 
 		double amount = Double.parseDouble(parsedObj.get("amount").asText());
-		Date submitted = new Date(Long.parseLong(parsedObj.get("date").asText()));
+		long d = Long.parseLong(parsedObj.get("date").asText()) + 43_200_000;
+		Date submitted = new Date(d);
+		System.out.println(submitted);
 		ReimbursementType type = ReimbursementType.FOOD;
 		switch (Integer.parseInt(parsedObj.get("type").asText())) {
 		case 0:
@@ -178,7 +180,7 @@ public class ReimbursementController {
 		JsonNode parsedObj = mapper.readTree(data);
 
 		int userId = Integer.parseInt(parsedObj.get("userid").asText());
-		int reId = Integer.parseInt(parsedObj.get("reId").asText());
+		int reId = Integer.parseInt(parsedObj.get("reid").asText());
 		Date resolved = new Date(Long.parseLong(parsedObj.get("date").asText()));
 
 		Reimbursement r = rServ.getReimbursementById(reId);
