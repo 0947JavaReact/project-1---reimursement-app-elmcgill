@@ -37,25 +37,37 @@ To-do list:
 1. You must have Java 8 Runtime Environment Installed
 2. You must have Apache Tomcat 9.0 installed
 3. You must have Spring Tool Suit 4 installed
+4. You must have Git and GitBash command line tool installed
 
 If you have all three prerequisites you can continue to cloning the project
-(include git clone command)
-(include all environment setup steps)
 
-> Be sure to include BOTH Windows and Unix command  
-> Be sure to mention if the commands only work on a specific platform (eg. AWS, GCP)
+Choose a folder you would like to place the project into
+Right click on the folder and choose "Git Bash here", this will open the Git Bash command line tool
+In the Git Bash terminal type this:
+`git clone https://github.com/0947JavaReact/project-1---reimursement-app-elmcgill.git`
+Hit enter and the project files will be downloaded onto your machine
 
-- All the `code` required to get started
-- Images of what it should look like
+After you have successfully cloned the project to your local machine, open up Spring Tool Suite
+Once open, on the left side in the project panel right click and choose import
+This will open a new window, under general select "Projects from Folder or Archive"
+Choose the folder you cloned the project to, and you would now have the project imported into Spring Tool Suite
+Now find the project on the left side of the screen and right click it
+Choose properties, then targeted runtimes, make sure Apache Tomcat v9.0 is selected
+You should now be ready to start running the project
 
 ## Usage
 
-> Here, you instruct other people on how to use your project after they’ve installed it. This would also be a good place to include screenshots of your project in action.
+To start the application, you will still need to be in Spring Tool Suite
+Right click on the project again, this time choose "Run As" then "Run on server"
+This will start up the project, once its started up a new browser window should appear
+When this window pops up, replace the url in the window with this url:
+`http://localhost:8080/project1/resources/html/index.html`
+Now you can use the application
 
 ## Contributors
 
-> Here list the people who have contributed to this project. (ignore this section, if its a solo project)
+Ethan McGill
 
 ## License
 
-This project uses the following license: [<license_name>](<link>).
+This project uses the following license:
