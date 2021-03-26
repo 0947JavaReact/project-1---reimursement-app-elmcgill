@@ -21,16 +21,24 @@ The Expense Reimbursement System (ERS) will manage the process of reimbursing em
 ## Features
 
 List of features ready and TODOs for future development
-* Awesome feature 1
-* Awesome feature 2
-* Awesome feature 3
+* A user can register as an Employee or Financial Manager
+* Employees can login to view their previous reimbursement tickets
+* Employees can submit new reimbursement tickets
+* Employees can filter their reimbursement tickets by status
+* Financial Managers can login to view a table of all reimbursement tickets
+* Financial Managers can filter all reimbursement tickets by status
+* Financial Managers can review reimbursement tickets, and either approve or reject them
 
 To-do list:
-* Wow improvement to be done 1
-* Wow improvement to be done 2
+* Allow Financial Managers to create their own reimbursement tickets
+* Disallow Financial Managers from reviewing their own tickets
 
 ## Getting Started
-   
+1. You must have Java 8 Runtime Environment Installed
+2. You must have Apache Tomcat 9.0 installed
+3. You must have Spring Tool Suit 4 installed
+
+If you have all three prerequisites you can continue to cloning the project
 (include git clone command)
 (include all environment setup steps)
 
