@@ -41,28 +41,28 @@ To-do list:
 
 If you have all three prerequisites you can continue to cloning the project
 
-Choose a folder you would like to place the project into
-Right click on the folder and choose "Git Bash here", this will open the Git Bash command line tool
-In the Git Bash terminal type this:
-`git clone https://github.com/0947JavaReact/project-1---reimursement-app-elmcgill.git`
-Hit enter and the project files will be downloaded onto your machine
+1. Choose a folder you would like to place the project into
+2, Right click on the folder and choose "Git Bash here", this will open the Git Bash command line tool
+3. In the Git Bash terminal type this:
+   `git clone https://github.com/0947JavaReact/project-1---reimursement-app-elmcgill.git`
+4. Hit enter and the project files will be downloaded onto your machine
 
-After you have successfully cloned the project to your local machine, open up Spring Tool Suite
-Once open, on the left side in the project panel right click and choose import
-This will open a new window, under general select "Projects from Folder or Archive"
-Choose the folder you cloned the project to, and you would now have the project imported into Spring Tool Suite
-Now find the project on the left side of the screen and right click it
-Choose properties, then targeted runtimes, make sure Apache Tomcat v9.0 is selected
-You should now be ready to start running the project
+5. After you have successfully cloned the project to your local machine, open up Spring Tool Suite
+6. Once open, on the left side in the project panel right click and choose import
+7. This will open a new window, under general select "Projects from Folder or Archive"
+8. Choose the folder you cloned the project to, and you would now have the project imported into Spring Tool Suite
+9. Now find the project on the left side of the screen and right click it
+10. Choose properties, then targeted runtimes, make sure Apache Tomcat v9.0 is selected
+11. You should now be ready to start running the project
 
 ## Usage
 
-To start the application, you will still need to be in Spring Tool Suite
-Right click on the project again, this time choose "Run As" then "Run on server"
-This will start up the project, once its started up a new browser window should appear
-When this window pops up, replace the url in the window with this url:
-`http://localhost:8080/project1/resources/html/index.html`
-Now you can use the application
+* To start the application, you will still need to be in Spring Tool Suite
+* Right click on the project again, this time choose "Run As" then "Run on server"
+* This will start up the project, once its started up a new browser window should appear
+* When this window pops up, replace the url in the window with this url:
+  `http://localhost:8080/project1/resources/html/index.html`
+* Now you can use the application
 
 ## Contributors
 
